@@ -1,0 +1,44 @@
+name: portfolio_roz
+description: Rafael Ortiz Zabléh's portfolio
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  font_awesome_flutter: ^10.5.0
+  intl: any
+  url_launcher: ^6.1.11
+  cached_network_image: ^3.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - assets/logos/
+    - assets/images/
+  fonts:
+    - family: Norwester
+      fonts:
+        - asset: assets/fonts/norwester.otf
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Montserrat-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 700

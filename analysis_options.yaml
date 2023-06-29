@@ -1,0 +1,14 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.pb*.dart"
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    
+linter:
+  rules:
+    unawaited_futures: true
+    sort_constructors_first: true
+    use_super_parameters: true
+    flutter_style_todos: true
