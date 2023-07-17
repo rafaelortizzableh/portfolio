@@ -10,11 +10,13 @@ class ProjectRelevantLinks extends StatelessWidget {
     this.website,
     this.playStoreUrl,
     this.appStoreUrl,
+    this.youtubeDemoUrl,
   });
 
   final Uri? website;
   final Uri? playStoreUrl;
   final Uri? appStoreUrl;
+  final Uri? youtubeDemoUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +24,7 @@ class ProjectRelevantLinks extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (website != null) ...[
-          const SizedBox(
-            width: AppConstants.horizontalPadding / 5,
-          ),
+          AppConstants.horizontalSpacing4,
           IconButton(
             icon: const Icon(
               FontAwesomeIcons.link,
@@ -38,10 +38,23 @@ class ProjectRelevantLinks extends StatelessWidget {
             },
           ),
         ],
-        if (appStoreUrl != null) ...[
-          const SizedBox(
-            width: AppConstants.horizontalPadding / 5,
+        if (youtubeDemoUrl != null) ...[
+          AppConstants.horizontalSpacing4,
+          IconButton(
+            icon: const Icon(
+              FontAwesomeIcons.youtube,
+              color: Palette.white,
+            ),
+            onPressed: () {
+              launchUrl(
+                youtubeDemoUrl!,
+                mode: LaunchMode.externalApplication,
+              );
+            },
           ),
+        ],
+        if (appStoreUrl != null) ...[
+          AppConstants.horizontalSpacing4,
           IconButton(
             icon: const Icon(
               FontAwesomeIcons.appStore,
@@ -49,16 +62,14 @@ class ProjectRelevantLinks extends StatelessWidget {
             ),
             onPressed: () {
               launchUrl(
-                playStoreUrl!,
+                appStoreUrl!,
                 mode: LaunchMode.externalApplication,
               );
             },
           ),
         ],
         if (playStoreUrl != null) ...[
-          const SizedBox(
-            width: AppConstants.horizontalPadding / 5,
-          ),
+          AppConstants.horizontalSpacing4,
           IconButton(
             icon: const Icon(
               FontAwesomeIcons.googlePlay,

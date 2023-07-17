@@ -24,7 +24,7 @@ class CloseFullScreenButton extends StatelessWidget {
       onPressed: () {
         if (onClose != null) onClose!();
 
-        Navigator.pop(context);
+        Navigator.maybePop(context);
       },
       tooltipMesssage: context.l10n.closeCta,
     );

@@ -4,15 +4,21 @@ import 'package:flutter/services.dart' show LogicalKeyboardKey;
 abstract class ShortcutIntents {
   /// An intent to close a popup on `Enter` or `Escape`.
   static Map<SingleActivator, ClosePopupIntent> closePopupOnEnterOrEscape(
-    BuildContext context,
-  ) {
+    BuildContext context, {
+    bool closeOnEscape = true,
+    bool closeOnEnter = true,
+  }) {
     return <SingleActivator, ClosePopupIntent>{
-      const SingleActivator(
-        LogicalKeyboardKey.enter,
-      ): ClosePopupIntent(context),
-      const SingleActivator(
-        LogicalKeyboardKey.escape,
-      ): ClosePopupIntent(context),
+      if (closeOnEnter) ...{
+        const SingleActivator(
+          LogicalKeyboardKey.enter,
+        ): ClosePopupIntent(context),
+      },
+      if (closeOnEscape) ...{
+        const SingleActivator(
+          LogicalKeyboardKey.escape,
+        ): ClosePopupIntent(context),
+      },
     };
   }
 

@@ -11,7 +11,7 @@ class ImageViewerArguments {
     required this.heroTag,
   }) : assert(
           imageAsset != null || imageUrl != null,
-          'One of Image Asset or Image Url should be a valid string',
+          'One of imageAsset or imageUrl should be a valid string',
         );
   final String? imageUrl, imageAsset;
   final String heroTag;
@@ -35,81 +35,90 @@ class ImageViewer extends StatefulWidget {
 }
 
 class _ImageViewerState extends State<ImageViewer>
-    with SingleTickerProviderStateMixin {
-  late final TransformationController _transformationController;
-  late final AnimationController _animationController;
-  Animation? _animation;
-  TapDownDetails? _tapDownDetails;
+    with TickerProviderStateMixin {
+  late final _animationController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 100),
+  );
+  late final _transformationController = TransformationController();
+  final _tapDownDetailsNotifier = ValueNotifier<TapDownDetails?>(null);
+  final _animationNotifier = ValueNotifier<Animation?>(null);
 
   @override
   void initState() {
     super.initState();
-    _transformationController = TransformationController();
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 100),
-      vsync: this,
+    _animationController.addListener(
+      () => _animateOnDoubleTap(
+        _transformationController,
+        _animationNotifier.value,
+      ),
     );
-    _animationController.addListener(_animateOnDoubleTap);
   }
 
   @override
   void dispose() {
-    _animationController.removeListener(_animateOnDoubleTap);
     _animationController.dispose();
     _transformationController.dispose();
+    _tapDownDetailsNotifier.dispose();
+    _animationNotifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final transformationController = _transformationController;
+    final animationController = _animationController;
     return StatusBarWrapper(
       statusBarStyle: StatusBarStyle.light,
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        backgroundColor: Palette.black,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Palette.white,
-          elevation: 0,
-        ),
-        body: Stack(
-          children: [
-            Center(
-              child: GestureDetector(
-                onDoubleTapDown: (details) => _handleDoubleTapDown(
-                  details,
-                ),
-                onDoubleTap: () => _handleDoubleTap(
-                  _transformationController,
-                  _animationController,
-                ),
-                child: InteractiveViewer(
-                  transformationController: _transformationController,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        flex: 4,
-                        child: Hero(
-                          transitionOnUserGestures: true,
-                          tag: widget.heroTag,
-                          child: _Image(
-                            key: ObjectKey(
-                              'image-viewer-${widget.imageUrl}-${widget.imageAsset}}',
+      child: SafeArea(
+        bottom: false,
+        top: true,
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          backgroundColor: Colors.black,
+          body: Stack(
+            children: [
+              Center(
+                child: GestureDetector(
+                  onDoubleTapDown: (details) => _handleDoubleTapDown(
+                    details,
+                    _tapDownDetailsNotifier,
+                  ),
+                  onDoubleTap: () => _handleDoubleTap(
+                    transformationController,
+                    animationController,
+                    _tapDownDetailsNotifier.value,
+                    _animationNotifier,
+                  ),
+                  child: InteractiveViewer(
+                    transformationController: transformationController,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          flex: 4,
+                          child: Hero(
+                            transitionOnUserGestures: true,
+                            tag: widget.heroTag,
+                            child: _Image(
+                              imageAsset: widget.imageAsset,
+                              imageUrl: widget.imageUrl,
                             ),
-                            imageAsset: widget.imageAsset,
-                            imageUrl: widget.imageUrl,
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+              const Positioned(
+                top: kToolbarHeight,
+                child: CloseFullScreenButton(color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -117,74 +126,52 @@ class _ImageViewerState extends State<ImageViewer>
 
   void _handleDoubleTapDown(
     TapDownDetails details,
+    ValueNotifier<TapDownDetails?> tapDownDetailsValueNotifier,
   ) {
-    _tapDownDetails = details;
-    setState(() {});
+    tapDownDetailsValueNotifier.value = details;
   }
 
-  void _animateOnDoubleTap() {
-    final animation = _animation;
+  void _animateOnDoubleTap(
+    TransformationController transformationController,
+    Animation? animation,
+  ) {
     if (animation == null) return;
-    _transformationController.value = animation.value;
+    transformationController.value = animation.value;
   }
 
   void _handleDoubleTap(
     TransformationController transformationController,
     AnimationController animationController,
+    TapDownDetails? details,
+    ValueNotifier<Animation?> animationValueNotifier,
   ) {
-    final details = _tapDownDetails;
     if (details == null) return;
 
-    final endMatrix = Matrix4.identity();
-    final currentTransformationValue = transformationController.value;
+    Matrix4? endMatrix;
 
-    _handlePositionChangesOnEndMatrix(
-      endMatrix: endMatrix,
-      currentTransformationControllerValue: currentTransformationValue,
-      details: details,
+    if (transformationController.value != Matrix4.identity()) {
+      endMatrix = Matrix4.identity();
+    } else {
+      final position = details.localPosition;
+
+      endMatrix = Matrix4.identity()
+        // ..translate(-position.dx, -position.dy)
+        // ..scale(2.0); // Fox a 2x zoom
+        ..translate(-position.dx * 2, -position.dy * 2)
+        ..scale(3.0); // For a 3x zoom
+    }
+    animationValueNotifier.value = Matrix4Tween(
+      begin: transformationController.value,
+      end: endMatrix,
+    ).animate(
+      CurveTween(curve: Curves.easeOut).animate(animationController),
     );
-
-    _updateAnimation(
-      animationController: animationController,
-      endMatrix: endMatrix,
-      currentTransformationControllerValue: currentTransformationValue,
-    );
-
     animationController.forward(from: 0);
-  }
-
-  void _handlePositionChangesOnEndMatrix({
-    required Matrix4 endMatrix,
-    required Matrix4 currentTransformationControllerValue,
-    required TapDownDetails details,
-  }) {
-    final position = details.localPosition;
-    if (currentTransformationControllerValue == endMatrix) return;
-
-    endMatrix
-      ..translate(-position.dx, -position.dy)
-      ..scale(2.0);
-  }
-
-  void _updateAnimation({
-    required Matrix4 endMatrix,
-    required Matrix4 currentTransformationControllerValue,
-    required AnimationController animationController,
-  }) {
-    setState(() {
-      _animation = Matrix4Tween(
-        begin: currentTransformationControllerValue,
-        end: endMatrix,
-      ).animate(
-        CurveTween(curve: Curves.easeOut).animate(animationController),
-      );
-    });
   }
 }
 
 class _Image extends StatelessWidget {
   const _Image({
-    super.key,
     required this.imageAsset,
     required this.imageUrl,
   });

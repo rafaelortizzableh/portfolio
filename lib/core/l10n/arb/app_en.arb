@@ -7,5 +7,8 @@
   "contact": "Contact",
   "aboutMe": "About Me",
   "languages": "Languages",
-  "closeCta": "Close"
+  "closeCta": "Close",
+  "fullScreenCta": "Full Screen",
+  "viewMoreDetailsCta": "More Details",
+  "toolsAndTechnologies": "Tools and Technologies"
 }

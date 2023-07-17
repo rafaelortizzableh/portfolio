@@ -12,14 +12,14 @@ class ContactIconsWrap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: AppConstants.verticalPadding,
-        top: AppConstants.verticalPadding,
-        right: AppConstants.verticalPadding,
-        bottom: context.bottomPadding + AppConstants.verticalPadding,
+        left: AppConstants.spacing12,
+        top: AppConstants.spacing12,
+        right: AppConstants.spacing12,
+        bottom: context.bottomPadding + AppConstants.spacing12,
       ),
       child: Wrap(
         alignment: WrapAlignment.center,
-        spacing: AppConstants.horizontalPadding,
+        spacing: AppConstants.spacing12,
         children: ContactInformationData.contactIconsAndLinks
             .map(
               (contactIconAndLink) => ContactIcon(

@@ -30,6 +30,7 @@ flutter:
   assets:
     - assets/logos/
     - assets/images/
+    - assets/images/tech_tools/
   fonts:
     - family: Norwester
       fonts:
