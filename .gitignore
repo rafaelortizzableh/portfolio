@@ -32,6 +32,9 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Build related
+build_and_depoy.sh
+
 # Symbolication related
 app.*.symbols
 

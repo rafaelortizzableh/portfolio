@@ -9,57 +9,117 @@ class PortfolioHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return const Padding(
       padding: AppConstants.padding12,
       child: DecoratedBox(
-        decoration: const BoxDecoration(
-          border: Border.fromBorderSide(
-            BorderSide(
-              color: Palette.grey,
-              width: 4.0,
-            ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('./assets/images/header.webp'),
+            fit: BoxFit.cover,
           ),
           borderRadius: AppConstants.borderRadius12,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
+          padding: AppConstants.padding12,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
-                child: Text.rich(
-                  TextSpan(
-                    text: 'Rafael '.toUpperCase(),
-                    style: AppTextStyles.h1.copyWith(
-                      color: Palette.grey,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Ortiz '.toUpperCase(),
-                        style: AppTextStyles.h1.copyWith(
-                          color: Palette.black,
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Zableh'.toUpperCase(),
-                        style: AppTextStyles.h1.copyWith(
-                          color: Palette.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              AppConstants.verticalSpacing12,
-              Text(
-                context.l10n.softwareEngineer.toUpperCase(),
-                style: AppTextStyles.mediumRegular.copyWith(
-                  color: Palette.black,
-                ),
-              ),
+              _ProfilePicture(),
+              AppConstants.horizontalSpacing12,
+              AppBarTitle(),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ProfilePicture extends StatelessWidget {
+  const _ProfilePicture();
+  static const _profilePictureAsset = 'assets/images/profile_picture.webp';
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxWidth: 80.0,
+        maxHeight: 80.0,
+      ),
+      child: const FadingAssetImage(
+        path: _profilePictureAsset,
+      ),
+    );
+  }
+}
+
+class AppBarTitle extends StatelessWidget {
+  const AppBarTitle({
+    super.key,
+    this.titleTextStyle,
+    this.showHeadline = true,
+    this.showImage = false,
+    this.isWithinDeviceFrame = false,
+  });
+
+  factory AppBarTitle.onExpandedAppBar({
+    bool isWithinDeviceFrame = false,
+  }) {
+    return AppBarTitle(
+      showHeadline: true,
+      showImage: true,
+      isWithinDeviceFrame: isWithinDeviceFrame,
+    );
+  }
+
+  factory AppBarTitle.onCollapsedAppBar({
+    bool isWithinDeviceFrame = false,
+  }) {
+    return AppBarTitle(
+      showHeadline: false,
+      showImage: false,
+      titleTextStyle: AppTextStyles.h2.copyWith(
+        color: Palette.white,
+      ),
+      isWithinDeviceFrame: isWithinDeviceFrame,
+    );
+  }
+
+  final bool showHeadline;
+  final bool showImage;
+  final TextStyle? titleTextStyle;
+  final bool isWithinDeviceFrame;
+
+  @override
+  Widget build(BuildContext context) {
+    final title = isWithinDeviceFrame
+        ? context.l10n.projects
+        : AppConstants.developerName;
+    final titleTextStyle = this.titleTextStyle ??
+        AppTextStyles.h1.copyWith(
+          color: Palette.white,
+        );
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (showImage) ...[
+          const _ProfilePicture(),
+          AppConstants.verticalSpacing8,
+        ],
+        Text(
+          title.toUpperCase(),
+          style: titleTextStyle,
+        ),
+        if (showHeadline) ...[
+          AppConstants.verticalSpacing4,
+          Text(
+            context.l10n.softwareEngineer.toUpperCase(),
+            style: AppTextStyles.mediumRegular.copyWith(
+              color: Palette.white,
+            ),
+          ),
+        ],
+      ],
     );
   }
 }

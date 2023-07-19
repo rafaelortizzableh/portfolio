@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import '../../../features.dart';
 import '../../../../core/core.dart';
 
-class PorfolioItemTile extends StatefulWidget {
-  const PorfolioItemTile({
+class ProjectItemTile extends StatefulWidget {
+  const ProjectItemTile({
     super.key,
     required this.portfolioProject,
   });
@@ -14,10 +14,10 @@ class PorfolioItemTile extends StatefulWidget {
   final PortfolioProject portfolioProject;
 
   @override
-  State<PorfolioItemTile> createState() => _PorfolioItemTileState();
+  State<ProjectItemTile> createState() => _ProjectItemTileState();
 }
 
-class _PorfolioItemTileState extends State<PorfolioItemTile> {
+class _ProjectItemTileState extends State<ProjectItemTile> {
   bool _hovered = false;
   bool _tapped = false;
 
@@ -40,7 +40,10 @@ class _PorfolioItemTileState extends State<PorfolioItemTile> {
         }),
         child: GestureDetector(
           onTapDown: (details) => setState(() => _tapped = true),
-          onTapUp: (details) => setState(() => _tapped = false),
+          onTapUp: (_) => setState(() {
+            _tapped = false;
+            _hovered = false;
+          }),
           onTap: () => _onProjectTileTap(context),
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -101,14 +104,10 @@ class _PorfolioItemTileState extends State<PorfolioItemTile> {
   void _onProjectTileTap(BuildContext context) {
     final navigator = Navigator.of(context);
     unawaited(
-      navigator.push(
-        // MaterialPageRoute(
-        ModalBottomSheetRoute(
-          isScrollControlled: true,
-          builder: (context) => ProjectPage(
-            portfolioProject: widget.portfolioProject,
-          ),
-        ),
+      navigator.pushNamed(
+        ProjectPage.routeName,
+        arguments:
+            ProjectPageArguments(portfolioProject: widget.portfolioProject),
       ),
     );
   }

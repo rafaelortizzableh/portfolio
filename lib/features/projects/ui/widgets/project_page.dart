@@ -7,18 +7,30 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/core.dart';
 import '../../../features.dart';
 
-class ProjectPage extends StatefulWidget {
-  const ProjectPage({
-    super.key,
+class ProjectPageArguments {
+  const ProjectPageArguments({
     required this.portfolioProject,
-    this.minWidth,
     this.backgroundDecoration = const BoxDecoration(
       color: Palette.black,
     ),
   });
 
   final PortfolioProject portfolioProject;
-  final double? minWidth;
+  final BoxDecoration backgroundDecoration;
+}
+
+class ProjectPage extends StatefulWidget {
+  const ProjectPage({
+    super.key,
+    required this.portfolioProject,
+    this.backgroundDecoration = const BoxDecoration(
+      color: Palette.black,
+    ),
+  });
+
+  static const routeName = 'project';
+
+  final PortfolioProject portfolioProject;
   final BoxDecoration backgroundDecoration;
 
   @override
@@ -58,7 +70,7 @@ class _ProjectPageState extends State<ProjectPage>
 
   @override
   Widget build(BuildContext context) {
-    final minWidth = widget.minWidth ?? context.width;
+    final minWidth = context.width;
 
     return StatusBarWrapper(
       statusBarStyle: StatusBarStyle.light,
@@ -187,7 +199,7 @@ class _ProjectPageState extends State<ProjectPage>
                                     onShowMoreDetailsPressed:
                                         _onShowMoreDetails,
                                   )
-                                : const SizedBox.shrink(),
+                                : AppConstants.emptySpace,
                           ),
                         ],
                       ),
@@ -312,13 +324,10 @@ class _ProjectPageState extends State<ProjectPage>
 
     unawaited(
       navigator
-          .push(
-            ModalBottomSheetRoute(
-              isScrollControlled: true,
-              backgroundColor: Palette.black.withOpacity(0.85),
-              builder: (context) => ProjectDetailsPage(
-                portfolioProject: widget.portfolioProject,
-              ),
+          .pushNamed(
+            ProjectDetailsPage.routeName,
+            arguments: ProjectDetailsPageArguments(
+              portfolioProject: widget.portfolioProject,
             ),
           )
           .then(
@@ -338,26 +347,29 @@ class _ProjectPageState extends State<ProjectPage>
     final isMobileLayout = deviceWidth <= AppConstants.mobileLayoutMaxWidth;
 
     if (!isMobileLayout) {
-      showDialog(
-        barrierDismissible: true,
-        context: context,
-        builder: (context) => ImagesCarousel(
-          allImageAssets: imageAssetPaths,
-          initiallySelectedImageAsset: imageAsset,
+      unawaited(
+        showDialog(
+          barrierDismissible: true,
+          context: context,
+          builder: (context) => ImagesCarousel(
+            allImageAssets: imageAssetPaths,
+            initiallySelectedImageAsset: imageAsset,
+          ),
         ),
       );
       return;
     }
 
-    final imageViewerRoute = MaterialPageRoute(
-      builder: (context) => ImageViewer(
-        imageAsset: imageAsset,
-        imageUrl: null,
-        heroTag: heroTag,
+    unawaited(
+      navigator.pushNamed(
+        ImageViewer.routeName,
+        arguments: ImageViewerArguments(
+          imageAsset: imageAsset,
+          imageUrl: null,
+          heroTag: heroTag,
+        ),
       ),
     );
-
-    navigator.push(imageViewerRoute);
   }
 }
 

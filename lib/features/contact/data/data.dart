@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-typedef ContactIconAndLinkRecord = ({IconData icon, Uri url});
+typedef ContactIconAndLinkRecord = ({PhosphorIconData icon, Uri url});
 
 abstract class ContactInformationData {
   static const _githubLink = String.fromEnvironment('GITHUB_LINK');
@@ -11,27 +10,27 @@ abstract class ContactInformationData {
   static const _twitterLink = String.fromEnvironment('TWITTER_LINK');
 
   static final ContactIconAndLinkRecord _github = (
-    icon: FontAwesomeIcons.github,
+    icon: PhosphorIcons.fill.githubLogo,
     url: Uri.parse(_githubLink),
   );
 
   static final ContactIconAndLinkRecord _linkedin = (
-    icon: FontAwesomeIcons.linkedinIn,
+    icon: PhosphorIcons.fill.linkedinLogo,
     url: Uri.parse(_linkedinLink),
   );
 
   static final ContactIconAndLinkRecord _email = (
-    icon: FontAwesomeIcons.envelope,
+    icon: PhosphorIcons.fill.envelope,
     url: Uri.parse(_emailLink),
   );
 
   static final ContactIconAndLinkRecord _phone = (
-    icon: Icons.phone,
+    icon: PhosphorIcons.fill.phone,
     url: Uri.parse(_phoneLink),
   );
 
   static final ContactIconAndLinkRecord _twitter = (
-    icon: FontAwesomeIcons.twitter,
+    icon: PhosphorIcons.fill.twitterLogo,
     url: Uri.parse(_twitterLink),
   );
 

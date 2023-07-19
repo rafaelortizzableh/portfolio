@@ -33,69 +33,87 @@ class _ImagesCarouselState extends State<ImagesCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      type: MaterialType.transparency,
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-          color: Colors.black54,
-        ),
-        child: Center(
-          child: Padding(
-            padding: AppConstants.padding32,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Stack(
+    return GestureDetector(
+      child: Material(
+        type: MaterialType.transparency,
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+            color: Colors.black54,
+          ),
+          child: GestureDetector(
+            // Adding a GestureDetector to dismiss
+            // the dialog when tapping outside of it.
+            //
+            // Note: This is done so we can prevent the default barrier
+            // behavior of the [showDialog] function.
+            behavior: HitTestBehavior.opaque,
+            onTap: Navigator.of(context).pop,
+            child: GestureDetector(
+              // Adding another GestureDetector to prevent
+              // the dialog from being dismissed
+              // when tapping inside of it.
+              onTap: () {},
+              child: Center(
+                child: Padding(
+                  padding: AppConstants.padding32,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image.asset(
-                          selectedImageAsset,
-                          fit: BoxFit.cover,
+                      Expanded(
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.asset(
+                                selectedImageAsset,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const Positioned(
+                              top: 0,
+                              right: 0,
+                              child: CloseFullScreenButton(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const Positioned(
-                        top: 0,
-                        right: 0,
-                        child: CloseFullScreenButton(
-                          color: Colors.white,
+                      const SizedBox(height: 25.0),
+                      FocusableActionDetector(
+                        focusNode: focusNode,
+                        onFocusChange: (_) => focusNode.requestFocus(),
+                        shortcuts: ShortcutIntents.navigateHorizontal(
+                          onNavigate: (direction) {
+                            _navigateHorizontal(direction);
+                          },
+                        ),
+                        actions: ShortcutActions.navigateHorizontal,
+                        child: SizedBox(
+                          height: 80.0,
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => _ImagePreview(
+                              onImageSelected: _onImageSelected,
+                              key: ObjectKey(
+                                'image_preview_${widget.allImageAssets[index]}',
+                              ),
+                              imageAsset: widget.allImageAssets[index],
+                              isSelectedImage: selectedImageAsset ==
+                                  widget.allImageAssets[index],
+                            ),
+                            separatorBuilder: (_, __) =>
+                                const SizedBox(width: 8.0),
+                            itemCount: widget.allImageAssets.length,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 25.0),
-                FocusableActionDetector(
-                  focusNode: focusNode,
-                  onFocusChange: (_) => focusNode.requestFocus(),
-                  shortcuts: ShortcutIntents.navigateHorizontal(
-                    onNavigate: (direction) {
-                      _navigateHorizontal(direction);
-                    },
-                  ),
-                  actions: ShortcutActions.navigateHorizontal,
-                  child: SizedBox(
-                    height: 80.0,
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => _ImagePreview(
-                        onImageSelected: _onImageSelected,
-                        key: ObjectKey(
-                          'image_preview_${widget.allImageAssets[index]}',
-                        ),
-                        imageAsset: widget.allImageAssets[index],
-                        isSelectedImage:
-                            selectedImageAsset == widget.allImageAssets[index],
-                      ),
-                      separatorBuilder: (_, __) => const SizedBox(width: 8.0),
-                      itemCount: widget.allImageAssets.length,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),

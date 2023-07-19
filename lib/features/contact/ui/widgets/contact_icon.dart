@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/core.dart';
@@ -22,6 +23,8 @@ class _ContactIconState extends State<ContactIcon> {
   bool _hovered = false;
   bool _tapped = false;
 
+  static const _centerFactor = 1.0;
+
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -33,7 +36,18 @@ class _ContactIconState extends State<ContactIcon> {
       }),
       child: GestureDetector(
         onTapDown: (_) => setState(() => _tapped = true),
-        onTapUp: (_) => setState(() => _tapped = false),
+        onTapUp: (_) => setState(() {
+          _tapped = false;
+          _hovered = false;
+        }),
+        onLongPressCancel: () => setState(() {
+          _tapped = false;
+          _hovered = false;
+        }),
+        onTapCancel: () => setState(() {
+          _tapped = false;
+          _hovered = false;
+        }),
         onTap: _launchUrl,
         child: AnimatedOpacity(
           duration: kThemeAnimationDuration,
@@ -45,9 +59,13 @@ class _ContactIconState extends State<ContactIcon> {
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                widget.contactIconAndLink.icon,
-                color: Palette.white,
+              child: Center(
+                heightFactor: _centerFactor,
+                widthFactor: _centerFactor,
+                child: PhosphorIcon(
+                  widget.contactIconAndLink.icon,
+                  color: Palette.white,
+                ),
               ),
             ),
           ),

@@ -13,20 +13,17 @@ class TechToolsWrap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: AppConstants.horizontalPadding12,
-      child: Wrap(
-        alignment: WrapAlignment.start,
-        spacing: AppConstants.spacing12,
-        runSpacing: AppConstants.spacing12,
-        children: [
-          ...techTools.map(
-            (techTool) => TechToolTile(
-              techTool: techTool,
-            ),
+    return Wrap(
+      alignment: WrapAlignment.start,
+      spacing: AppConstants.spacing4,
+      runSpacing: AppConstants.spacing4,
+      children: [
+        ...techTools.map(
+          (techTool) => TechToolTile(
+            techTool: techTool,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -41,29 +38,35 @@ class TechToolTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DecoratedBox(
-          decoration: const BoxDecoration(
-            color: Palette.white,
-            borderRadius: AppConstants.borderRadius12,
-          ),
-          child: Padding(
-            padding: AppConstants.padding4,
-            child: Image.asset(
-              techTool.iconAsset,
-              width: 42.0,
+    return SizedBox(
+      width: 74.0,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          DecoratedBox(
+            decoration: const BoxDecoration(
+              color: Palette.white,
+              borderRadius: AppConstants.borderRadius12,
+            ),
+            child: Padding(
+              padding: AppConstants.padding4,
+              child: Image.asset(
+                techTool.iconAsset,
+                width: 42.0,
+              ),
             ),
           ),
-        ),
-        AppConstants.verticalSpacing4,
-        Text(
-          techTool.label,
-          style: AppTextStyles.smallRegular.copyWith(
-            color: Palette.white,
+          AppConstants.verticalSpacing4,
+          Text(
+            techTool.label,
+            style: AppTextStyles.smallRegular.copyWith(
+              color: Palette.white,
+            ),
+            textAlign: TextAlign.center,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -2,16 +2,20 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import '../core.dart';
+
 class TargetPlatformInterfaceModel extends InheritedModel<InterfaceAspect> {
   const TargetPlatformInterfaceModel({
     super.key,
     this.targetPlatform,
     this.isPointerAvailable,
+    this.isMobileLayout,
     required super.child,
   });
 
   final TargetPlatform? targetPlatform;
   final bool? isPointerAvailable;
+  final bool? isMobileLayout;
 
   static TargetPlatform? targetPlatformOf(BuildContext context) {
     return InheritedModel.inheritFrom<TargetPlatformInterfaceModel>(
@@ -27,10 +31,18 @@ class TargetPlatformInterfaceModel extends InheritedModel<InterfaceAspect> {
         false;
   }
 
+  static bool isMobileLayoutOf(BuildContext context) {
+    return InheritedModel.inheritFrom<TargetPlatformInterfaceModel>(context,
+                aspect: InterfaceAspect.isPointerInterface)
+            ?.isMobileLayout ??
+        false;
+  }
+
   @override
   bool updateShouldNotify(TargetPlatformInterfaceModel oldWidget) {
     return targetPlatform != oldWidget.targetPlatform ||
-        isPointerAvailable != oldWidget.isPointerAvailable;
+        isPointerAvailable != oldWidget.isPointerAvailable ||
+        isMobileLayout != oldWidget.isMobileLayout;
   }
 
   @override
@@ -48,6 +60,13 @@ class TargetPlatformInterfaceModel extends InheritedModel<InterfaceAspect> {
         )) {
       return true;
     }
+
+    if (isMobileLayout != oldWidget.isMobileLayout &&
+        dependencies.contains(
+          InterfaceAspect.isMobileLayout,
+        )) {
+      return true;
+    }
     return false;
   }
 }
@@ -55,6 +74,7 @@ class TargetPlatformInterfaceModel extends InheritedModel<InterfaceAspect> {
 enum InterfaceAspect {
   isPointerInterface,
   targetPlatform,
+  isMobileLayout,
 }
 
 class PointerInterfaceDetectorWrapper extends StatefulWidget {
@@ -83,9 +103,12 @@ class _PointerInterfaceDetectorWrapperState
   @override
   Widget build(BuildContext context) {
     final targetPlatform = Theme.of(context).platform;
+    final isMobileLayout = View.of(context).physicalSize.width <=
+        AppConstants.mobileLayoutMaxWidth;
     return TargetPlatformInterfaceModel(
       isPointerAvailable: _isPointerAvailable,
       targetPlatform: targetPlatform,
+      isMobileLayout: isMobileLayout,
       child: MouseRegion(
         onEnter: _updatePointerAvailability,
         child: widget.child,

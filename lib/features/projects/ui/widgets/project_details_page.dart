@@ -3,11 +3,21 @@ import 'package:flutter/material.dart';
 import '../../../../core/core.dart';
 import '../../../features.dart';
 
+class ProjectDetailsPageArguments {
+  const ProjectDetailsPageArguments({
+    required this.portfolioProject,
+  });
+
+  final PortfolioProject portfolioProject;
+}
+
 class ProjectDetailsPage extends StatelessWidget {
   const ProjectDetailsPage({
     super.key,
     required this.portfolioProject,
   });
+
+  static const routeName = 'project_details';
 
   final PortfolioProject portfolioProject;
 
@@ -76,8 +86,11 @@ class ProjectDetailsPage extends StatelessWidget {
                         ),
                       ),
                       AppConstants.verticalSpacing8,
-                      TechToolsWrap(
-                        techTools: portfolioProject.techTool,
+                      Padding(
+                        padding: AppConstants.horizontalPadding4,
+                        child: TechToolsWrap(
+                          techTools: portfolioProject.techTool,
+                        ),
                       ),
                       AppConstants.verticalSpacing12,
                       Align(

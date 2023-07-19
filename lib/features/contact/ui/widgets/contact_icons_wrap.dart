@@ -6,7 +6,10 @@ import '../../contact.dart';
 class ContactIconsWrap extends StatelessWidget {
   const ContactIconsWrap({
     super.key,
+    this.direction = Axis.horizontal,
   });
+
+  final Axis direction;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +21,10 @@ class ContactIconsWrap extends StatelessWidget {
         bottom: context.bottomPadding + AppConstants.spacing12,
       ),
       child: Wrap(
+        direction: direction,
         alignment: WrapAlignment.center,
         spacing: AppConstants.spacing12,
+        runSpacing: AppConstants.spacing12,
         children: ContactInformationData.contactIconsAndLinks
             .map(
               (contactIconAndLink) => ContactIcon(

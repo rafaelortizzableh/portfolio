@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 abstract class AppConstants {
+  // General
+  static const developerName = 'Rafael Ortiz Zableh';
+
   // Navigation
   static GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
 
@@ -12,6 +15,9 @@ abstract class AppConstants {
   static const borderRadius12 = BorderRadius.all(Radius.circular(12.0));
   static const borderRadius16 = BorderRadius.all(Radius.circular(16.0));
 
+  // Empty Space
+  static const emptySpace = SizedBox.shrink();
+
   // Spacing
   static const double spacing4 = 4.0;
   static const double spacing6 = 6.0;
@@ -20,11 +26,13 @@ abstract class AppConstants {
   static const double spacing24 = 24.0;
   static const double spacing32 = 32.0;
 
+  static const horizontalSpacing2 = SizedBox(width: 2.0);
   static const horizontalSpacing4 = SizedBox(width: 4.0);
   static const horizontalSpacing8 = SizedBox(width: 8.0);
   static const horizontalSpacing12 = SizedBox(width: 12.0);
   static const horizontalSpacing16 = SizedBox(width: 16.0);
   static const horizontalSpacing24 = SizedBox(width: 24.0);
+  static const verticalSpacing2 = SizedBox(height: 2.0);
   static const verticalSpacing4 = SizedBox(height: 4.0);
   static const verticalSpacing8 = SizedBox(height: 8.0);
   static const verticalSpacing12 = SizedBox(height: 12.0);

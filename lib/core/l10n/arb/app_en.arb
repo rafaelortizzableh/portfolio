@@ -1,5 +1,6 @@
 {
   "appName": "Rafael Ortiz - Software Developer",
+  "developerName": "Rafael Ortiz Zableh",
   "softwareDeveloper": "Software Developer",
   "softwareEngineer": "Software Engineer",
   "projects": "Projects",
@@ -7,6 +8,10 @@
   "contact": "Contact",
   "aboutMe": "About Me",
   "languages": "Languages",
+  "english": "English",
+  "spanish": "Spanish",
+  "italian": "Italian",
+  "catalan": "Catalan",
   "closeCta": "Close",
   "fullScreenCta": "Full Screen",
   "viewMoreDetailsCta": "More Details",

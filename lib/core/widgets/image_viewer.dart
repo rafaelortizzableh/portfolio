@@ -13,6 +13,7 @@ class ImageViewerArguments {
           imageAsset != null || imageUrl != null,
           'One of imageAsset or imageUrl should be a valid string',
         );
+
   final String? imageUrl, imageAsset;
   final String heroTag;
 }
