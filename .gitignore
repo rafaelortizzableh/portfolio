@@ -33,7 +33,7 @@ migrate_working_dir/
 /build/
 
 # Build related
-build_and_depoy.sh
+build_and_deploy.sh
 
 # Symbolication related
 app.*.symbols
