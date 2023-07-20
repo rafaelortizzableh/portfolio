@@ -112,6 +112,7 @@ class FadingLargeSliverAppBar extends StatelessWidget {
           final top = constraints.biggest.height;
 
           return FlexibleSpaceBar(
+            centerTitle: centerTitle,
             stretchModes: stretchModes,
             background: AnimatedOpacity(
               opacity: fadeAt >= top ? 0 : 1,
