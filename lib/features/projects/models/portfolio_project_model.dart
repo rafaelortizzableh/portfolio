@@ -11,7 +11,7 @@ class PortfolioProject {
     required this.imageLogoAssetPath,
     required this.featuredImageAssetPath,
     required this.imageAssetPaths,
-    required this.techTool,
+    required this.techTools,
     this.extendedDescription,
     this.website,
     this.playStoreUrl,
@@ -26,8 +26,8 @@ class PortfolioProject {
       imageLogoAssetPath: map['imageLogoAssetPath'] ?? '',
       featuredImageAssetPath: map['featuredImageAssetPath'] ?? '',
       imageAssetPaths: List<String>.from(map['imageAssetPaths']),
-      techTool: Set<TechTool>.from(
-        map['techTool'].map(
+      techTools: Set<TechTool>.from(
+        map['techTools'].map(
           (techTool) => TechTool.values[techTool],
         ),
       ),
@@ -51,7 +51,7 @@ class PortfolioProject {
   final String imageLogoAssetPath;
   final String featuredImageAssetPath;
   final List<String> imageAssetPaths;
-  final Set<TechTool> techTool;
+  final Set<TechTool> techTools;
   final Uri? website;
   final Uri? playStoreUrl;
   final Uri? appStoreUrl;
@@ -64,7 +64,7 @@ class PortfolioProject {
     String? imageLogoAssetPath,
     String? featuredImageAssetPath,
     List<String>? imageAssetPaths,
-    Set<TechTool>? techTool,
+    Set<TechTool>? techTools,
     Uri? website,
     Uri? playStoreUrl,
     Uri? appStoreUrl,
@@ -78,7 +78,7 @@ class PortfolioProject {
       featuredImageAssetPath:
           featuredImageAssetPath ?? this.featuredImageAssetPath,
       imageAssetPaths: imageAssetPaths ?? this.imageAssetPaths,
-      techTool: techTool ?? this.techTool,
+      techTools: techTools ?? this.techTools,
       website: website ?? this.website,
       playStoreUrl: playStoreUrl ?? this.playStoreUrl,
       appStoreUrl: appStoreUrl ?? this.appStoreUrl,
@@ -94,7 +94,7 @@ class PortfolioProject {
       'imageLogoAssetPath': imageLogoAssetPath,
       'featuredImageAssetPath': featuredImageAssetPath,
       'imageAssetPaths': imageAssetPaths,
-      'techTool': techTool.map((x) => x.name).toList(),
+      'techTools': techTools.map((x) => x.name).toList(),
       'website': website?.toString(),
       'playStoreUrl': playStoreUrl?.toString(),
       'appStoreUrl': appStoreUrl?.toString(),
@@ -106,7 +106,7 @@ class PortfolioProject {
 
   @override
   String toString() {
-    return 'PortfolioProject(title: $title, description: $description, extendedDescription: $extendedDescription, imageLogoAssetPath: $imageLogoAssetPath, featuredImageAssetPath: $featuredImageAssetPath, imageAssetPaths: $imageAssetPaths, techTool: $techTool, website: $website, playStoreUrl: $playStoreUrl, appStoreUrl: $appStoreUrl, youtubeDemoUrl: $youtubeDemoUrl)';
+    return 'PortfolioProject(title: $title, description: $description, extendedDescription: $extendedDescription, imageLogoAssetPath: $imageLogoAssetPath, featuredImageAssetPath: $featuredImageAssetPath, imageAssetPaths: $imageAssetPaths, techTools: $techTools, website: $website, playStoreUrl: $playStoreUrl, appStoreUrl: $appStoreUrl, youtubeDemoUrl: $youtubeDemoUrl)';
   }
 
   @override
@@ -120,7 +120,7 @@ class PortfolioProject {
         other.imageLogoAssetPath == imageLogoAssetPath &&
         other.featuredImageAssetPath == featuredImageAssetPath &&
         listEquals(other.imageAssetPaths, imageAssetPaths) &&
-        setEquals(other.techTool, techTool) &&
+        setEquals(other.techTools, techTools) &&
         other.website == website &&
         other.playStoreUrl == playStoreUrl &&
         other.appStoreUrl == appStoreUrl &&
@@ -135,7 +135,7 @@ class PortfolioProject {
         imageLogoAssetPath.hashCode ^
         featuredImageAssetPath.hashCode ^
         imageAssetPaths.hashCode ^
-        techTool.hashCode ^
+        techTools.hashCode ^
         website.hashCode ^
         playStoreUrl.hashCode ^
         appStoreUrl.hashCode ^
