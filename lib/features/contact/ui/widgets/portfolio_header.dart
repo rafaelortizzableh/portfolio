@@ -2,15 +2,57 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/core.dart';
 
-class PortfolioHeader extends StatelessWidget {
+class PortfolioHeader extends StatelessWidget implements PreferredSizeWidget {
   const PortfolioHeader({
+    super.key,
+  });
+
+  static const _preferedHeight = 100.0;
+  static const _cardElevation = 8.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: AppConstants.padding4,
+      child: Card(
+        elevation: _cardElevation,
+        shape: RoundedRectangleBorder(
+          borderRadius: AppConstants.borderRadius12,
+        ),
+        child: Stack(
+          children: [
+            _BackgroundDecoration(),
+            _GradientDecoration(),
+            Padding(
+              padding: AppConstants.padding12,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _ProfilePicture(),
+                  AppConstants.horizontalSpacing12,
+                  AppBarTitle(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size(double.infinity, _preferedHeight);
+}
+
+class _BackgroundDecoration extends StatelessWidget {
+  const _BackgroundDecoration({
+    // ignore: unused_element
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: AppConstants.padding12,
+    return const SizedBox.expand(
       child: DecoratedBox(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -19,16 +61,33 @@ class PortfolioHeader extends StatelessWidget {
           ),
           borderRadius: AppConstants.borderRadius12,
         ),
-        child: Padding(
-          padding: AppConstants.padding12,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _ProfilePicture(),
-              AppConstants.horizontalSpacing12,
-              AppBarTitle(),
-            ],
+      ),
+    );
+  }
+}
+
+class _GradientDecoration extends StatelessWidget {
+  const _GradientDecoration({
+    // ignore: unused_element
+    super.key,
+  });
+  static final _gradientColors = [
+    Palette.black.withOpacity(0.25),
+    Colors.transparent,
+    Palette.black.withOpacity(0.25),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: _gradientColors,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
+          borderRadius: AppConstants.borderRadius12,
         ),
       ),
     );
@@ -107,19 +166,23 @@ class AppBarTitle extends StatelessWidget {
           const _ProfilePicture(),
           AppConstants.verticalSpacing8,
         ],
-        Text(
-          title.toUpperCase(),
-          style: titleTextStyle,
-          textAlign: TextAlign.center,
+        Flexible(
+          child: Text(
+            title.toUpperCase(),
+            style: titleTextStyle,
+            textAlign: TextAlign.center,
+          ),
         ),
         if (showHeadline && !isWithinDeviceFrame) ...[
           AppConstants.verticalSpacing4,
-          Text(
-            context.l10n.softwareEngineer.toUpperCase(),
-            style: AppTextStyles.mediumRegular.copyWith(
-              color: Palette.white,
+          Flexible(
+            child: Text(
+              context.l10n.softwareEngineer.toUpperCase(),
+              style: AppTextStyles.mediumRegular.copyWith(
+                color: Palette.white,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ],

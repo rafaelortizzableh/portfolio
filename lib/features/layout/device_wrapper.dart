@@ -37,14 +37,16 @@ class _DeviceWrapperLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final targetPlatform =
-        TargetPlatformInterfaceModel.targetPlatformOf(context);
-    final isMobileDevice = targetPlatform == TargetPlatform.iOS ||
-        targetPlatform == TargetPlatform.android;
+    final targetPlatform = TargetPlatformInterfaceModel.targetPlatformOf(
+      context,
+    );
+    final isMobileDevice = _isMobileDevice(targetPlatform);
+
     if (isMobileLayout || isMobileDevice) return child;
 
-    return Scaffold(
-      body: Row(
+    return Material(
+      type: MaterialType.canvas,
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Expanded(
@@ -53,37 +55,61 @@ class _DeviceWrapperLayout extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                const Positioned(
-                  right: 0,
-                  child: ContactIconsWrap(direction: Axis.vertical),
-                ),
-                Padding(
-                  padding: AppConstants.horizontalPadding12,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const PortfolioHeader(),
-                      Expanded(
-                        child: Padding(
-                          padding: AppConstants.verticalPadding16,
-                          child: DeviceFrame(
-                            device: Devices.ios.iPhone13,
-                            orientation: Orientation.portrait,
-                            screen: child,
-                          ),
-                        ),
-                      ),
-                    ],
+            child: Scaffold(
+              floatingActionButton: const ContactIconsWrap(
+                direction: Axis.vertical,
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.endFloat,
+              appBar: const PortfolioHeader(),
+              body: Padding(
+                padding: AppConstants.horizontalPadding24,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    height: double.infinity,
+                    child: Padding(
+                      padding: AppConstants.verticalPadding8,
+                      child: _DeviceFrameSelector(child: child),
+                    ),
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  bool _isMobileDevice(TargetPlatform? targetPlatform) {
+    final isAndroid = targetPlatform == TargetPlatform.android;
+    final isIOS = targetPlatform == TargetPlatform.iOS;
+    return isAndroid || isIOS;
+  }
+}
+
+class _DeviceFrameSelector extends StatefulWidget {
+  const _DeviceFrameSelector({
+    required this.child,
+  });
+
+  final Widget child;
+
+  @override
+  State<_DeviceFrameSelector> createState() => _DeviceFrameSelectorState();
+}
+
+class _DeviceFrameSelectorState extends State<_DeviceFrameSelector> {
+  @override
+  Widget build(BuildContext context) {
+    return DeviceFrame(
+      device: _deviceInfo,
+      screen: widget.child,
+    );
+  }
+
+  DeviceInfo get _deviceInfo {
+    return Devices.ios.iPhone13;
   }
 }

@@ -1,4 +1,5 @@
-import 'package:feather_icons/feather_icons.dart';
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +16,10 @@ class HomeDrawer extends StatelessWidget {
     final isWebAndDesktop = _isWebAndDesktop(context);
     return GestureDetector(
       onHorizontalDragUpdate: isWebAndDesktop
-          ? (details) {
-              if (details.delta.dx < -5.0) {
-                Navigator.of(context).pop();
-              }
-            }
+          ? (details) => _closeOnDragUpdate(
+                details,
+                context,
+              )
           : null,
       child: Drawer(
         width: context.width * 0.8,
@@ -28,9 +28,16 @@ class HomeDrawer extends StatelessWidget {
     );
   }
 
+  void _closeOnDragUpdate(DragUpdateDetails details, BuildContext context) {
+    if (details.primaryDelta! > 0) {
+      unawaited(Navigator.maybePop(context));
+    }
+  }
+
   bool _isWebAndDesktop(BuildContext context) {
-    final targetPlatform =
-        TargetPlatformInterfaceModel.targetPlatformOf(context);
+    final targetPlatform = TargetPlatformInterfaceModel.targetPlatformOf(
+      context,
+    );
     final isMacOS = targetPlatform == TargetPlatform.macOS;
     final isWindows = targetPlatform == TargetPlatform.windows;
     final isLinux = targetPlatform == TargetPlatform.linux;
@@ -53,7 +60,9 @@ class HomeDrawerFAB extends StatelessWidget {
         ),
         backgroundColor: Palette.black,
         onPressed: () => _onFABPressed(context),
-        child: const Icon(FeatherIcons.info),
+        child: const GenericAssetIconWidget(
+          iconAsset: 'assets/icons/info_icon.webp',
+        ),
       ),
     );
   }

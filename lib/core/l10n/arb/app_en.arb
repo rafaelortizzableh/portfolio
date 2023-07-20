@@ -14,6 +14,8 @@
   "catalan": "Catalan",
   "closeCta": "Close",
   "fullScreenCta": "Full Screen",
+  "previousImageCta": "Previous Image",
+  "nextImageCta": "Next Image",
   "viewMoreDetailsCta": "More Details",
   "toolsAndTechnologies": "Tools and Technologies"
 }
