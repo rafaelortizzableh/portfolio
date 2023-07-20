@@ -5,15 +5,20 @@ abstract class AppConstants {
   static const developerName = 'Rafael Ortiz Zableh';
 
   // Navigation
-  static GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
+  static final navigationKey = GlobalKey<NavigatorState>();
 
   // Layout
   static const double mobileLayoutMaxWidth = 600.0;
 
   // Border Radius
-  static const borderRadius8 = BorderRadius.all(Radius.circular(8.0));
-  static const borderRadius12 = BorderRadius.all(Radius.circular(12.0));
-  static const borderRadius16 = BorderRadius.all(Radius.circular(16.0));
+  static const borderRadius4 = BorderRadius.all(circularRadius4);
+  static const borderRadius8 = BorderRadius.all(circularRadius8);
+  static const borderRadius12 = BorderRadius.all(circularRadius12);
+  static const borderRadius16 = BorderRadius.all(circularRadius16);
+  static const circularRadius4 = Radius.circular(4.0);
+  static const circularRadius8 = Radius.circular(8.0);
+  static const circularRadius12 = Radius.circular(12.0);
+  static const circularRadius16 = Radius.circular(16.0);
 
   // Empty Space
   static const emptySpace = SizedBox.shrink();

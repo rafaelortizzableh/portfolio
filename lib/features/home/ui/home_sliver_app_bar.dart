@@ -22,13 +22,13 @@ class HomeSliverAppBar extends StatelessWidget {
       expandedHeight: context.height * 0.33,
       backgroundColor: Palette.black,
       foregroundColor: Palette.white,
-      automaticallyImplyLeading: true,
+      automaticallyImplyLeading: false,
       centerTitle: true,
       background: DecoratedBox(
         decoration: const BoxDecoration(
           borderRadius: BorderRadiusDirectional.only(
-            bottomEnd: Radius.circular(4.0),
-            bottomStart: Radius.circular(4.0),
+            bottomEnd: AppConstants.circularRadius4,
+            bottomStart: AppConstants.circularRadius4,
           ),
         ),
         child: Stack(

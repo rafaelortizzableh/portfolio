@@ -71,7 +71,7 @@ class ProjectDetailsPage extends StatelessWidget {
                           style: AppTextStyles.smallRegular.copyWith(
                             color: Colors.white,
                           ),
-                          textAlign: TextAlign.justify,
+                          textAlign: TextAlign.start,
                         ),
                       ),
                       AppConstants.verticalSpacing12,
@@ -89,7 +89,7 @@ class ProjectDetailsPage extends StatelessWidget {
                       Padding(
                         padding: AppConstants.horizontalPadding4,
                         child: TechToolsWrap(
-                          techTools: portfolioProject.techTool,
+                          techTools: portfolioProject.techTools,
                         ),
                       ),
                       AppConstants.verticalSpacing12,

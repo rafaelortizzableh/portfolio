@@ -1,25 +1,42 @@
+import 'package:feather_icons/feather_icons.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../core/core.dart';
 import '../../features.dart';
 
 class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({super.key});
+  const HomeDrawer({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final isWebAndDesktop = _isWebAndDesktop(context);
     return GestureDetector(
-      onHorizontalDragUpdate: (details) {
-        if (details.delta.dx < -5.0) {
-          Navigator.of(context).pop();
-        }
-      },
+      onHorizontalDragUpdate: isWebAndDesktop
+          ? (details) {
+              if (details.delta.dx < -5.0) {
+                Navigator.of(context).pop();
+              }
+            }
+          : null,
       child: Drawer(
         width: context.width * 0.8,
         child: const InfoSidePanel(),
       ),
     );
+  }
+
+  bool _isWebAndDesktop(BuildContext context) {
+    final targetPlatform =
+        TargetPlatformInterfaceModel.targetPlatformOf(context);
+    final isMacOS = targetPlatform == TargetPlatform.macOS;
+    final isWindows = targetPlatform == TargetPlatform.windows;
+    final isLinux = targetPlatform == TargetPlatform.linux;
+    final isDesktopPlatform = isMacOS || isWindows || isLinux;
+
+    return kIsWeb && isDesktopPlatform;
   }
 }
 
@@ -36,7 +53,7 @@ class HomeDrawerFAB extends StatelessWidget {
         ),
         backgroundColor: Palette.black,
         onPressed: () => _onFABPressed(context),
-        child: Icon(PhosphorIcons.fill.info),
+        child: const Icon(FeatherIcons.info),
       ),
     );
   }

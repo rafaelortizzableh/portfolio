@@ -39,8 +39,16 @@ class _ProjectItemTileState extends State<ProjectItemTile> {
           _tapped = false;
         }),
         child: GestureDetector(
-          onTapDown: (details) => setState(() => _tapped = true),
+          onTapDown: (_) => setState(() => _tapped = true),
           onTapUp: (_) => setState(() {
+            _tapped = false;
+            _hovered = false;
+          }),
+          onLongPressCancel: () => setState(() {
+            _tapped = false;
+            _hovered = false;
+          }),
+          onTapCancel: () => setState(() {
             _tapped = false;
             _hovered = false;
           }),

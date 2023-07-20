@@ -101,22 +101,25 @@ class AppBarTitle extends StatelessWidget {
         );
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (showImage) ...[
+        if (showImage && !isWithinDeviceFrame) ...[
           const _ProfilePicture(),
           AppConstants.verticalSpacing8,
         ],
         Text(
           title.toUpperCase(),
           style: titleTextStyle,
+          textAlign: TextAlign.center,
         ),
-        if (showHeadline) ...[
+        if (showHeadline && !isWithinDeviceFrame) ...[
           AppConstants.verticalSpacing4,
           Text(
             context.l10n.softwareEngineer.toUpperCase(),
             style: AppTextStyles.mediumRegular.copyWith(
               color: Palette.white,
             ),
+            textAlign: TextAlign.center,
           ),
         ],
       ],
