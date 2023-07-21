@@ -7,4 +7,5 @@ export 'generic_icon_button.dart';
 export 'image_carousel.dart';
 export 'image_viewer.dart';
 export 'pointer_interface_detector.dart';
+export 'splash_screen.dart';
 export 'status_bar_wrapper.dart';

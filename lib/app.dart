@@ -8,7 +8,7 @@ class PortfolioApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ImagePreloader(
+    return SpashScreen(
       child: PointerInterfaceDetectorWrapper(
         child: MaterialApp(
           color: Palette.black,
