@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/core.dart';
@@ -84,12 +85,16 @@ class ProjectDescriptionPreview extends StatelessWidget {
               AppConstants.verticalSpacing8,
               Align(
                 alignment: Alignment.bottomRight,
-                child: TextButton(
+                child: TextButton.icon(
+                  icon: const Icon(
+                    CupertinoIcons.chevron_up,
+                    color: Palette.white,
+                  ),
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.transparent,
                   ),
                   onPressed: onShowMoreDetailsPressed,
-                  child: Text(
+                  label: Text(
                     context.l10n.viewMoreDetailsCta,
                     style: AppTextStyles.smallRegular.copyWith(
                       color: Palette.white,
