@@ -92,8 +92,13 @@ abstract class PortfolioProjects {
   static final _fundacionSaludSiglo21 = PortfolioProject(
     title: 'Fundación Salud Siglo 21',
     description:
-        'I was in charge of the techincal aspects of the digitalization process of the Fundación Salud Siglo 21, a non-profit organization that provides medical services to vulnerable communities in Colombia.'
-        '\nAmong the initial requirements were: overseeing the non-profit\'s rebranding process, creating a new website for the foundation, and a web app with integrations to third party payment providers in physical locations, that allows users to register, update their information, and pay the yearly membership fees both through physical payments and bank transfers. This effort also included several automations and integrations with their CRM.\n Additionally, I developed a directory web app that allows users to find medical practitioners, filtering by specializations, subspecializations, and medical procedures offered.\n',
+        'I was in charge of the techincal aspects of the digitalization process of the Fundación Salud Siglo 21, a non-profit organization that provides medical services to vulnerable communities in Colombia.\n'
+        'This included:\n'
+        '- Overseeing the non-profit\'s rebranding process.\n'
+        '- Creating a new website for the foundation.\n'
+        '- Creating a full-stack web app that allows users to register, update their information, and pay the yearly membership fees both through physical payments and bank transfers. The app includes integrations with third party APIs for payments, insertion of data into their CRM and Google Sheets, among others.\n'
+        '- Creating a directory web app that allows users to find medical practitioners, filtering by specializations, subspecializations, and medical procedures offered.\n'
+        '- Providing consulting services for the non-profit\'s digitalization process. This included a Social Media and basic design training.\n',
     imageLogoAssetPath: 'assets/logos/fss21_logo.webp',
     featuredImageAssetPath: 'assets/images/fss21_0.webp',
     imageAssetPaths: [
@@ -113,8 +118,9 @@ abstract class PortfolioProjects {
 
   static final _profesionalesDeLaSalud = PortfolioProject(
     title: 'Profesionales de la Salud',
-    description: 'Created a website for a medical practice in Colombia.\n'
-        'Additionally, created a web app with automations for scheduling appointments, based on their requirements.',
+    description: '- Created a website for the medical practice.\n'
+        '- Created a web app for scheduling appointments based on their requirements.\n'
+        '- Created serverless automations for the appointment scheduling process, including integrations with third party APIs.',
     imageLogoAssetPath: 'assets/logos/pds_logo.webp',
     featuredImageAssetPath: 'assets/images/pds_0.webp',
     website: Uri.parse('profesionalesdelasalud.com.co'),
@@ -145,6 +151,26 @@ abstract class PortfolioProjects {
     },
   );
 
+  static final _centroUrologicoFoscal = PortfolioProject(
+    title: 'Centro Urológico Foscal',
+    description: '- Oversaw the medical practice\'s rebranding process.\n'
+        '- Created a website for the medical practice.\n'
+        '- Provided maintenance and support for the medical practice\'s website.\n'
+        '- Provided consulting services for the medical practice\'s digitalization process.\n'
+        '- Provided internal and external communications consulting services for the medical practice.\n'
+        '- Created and implemented a successful SEO strategy for the medical practice.',
+    imageLogoAssetPath: 'assets/logos/cuf_logo.webp',
+    website: Uri.parse('https://centrourologico.org'),
+    featuredImageAssetPath: 'assets/images/cuf_0.webp',
+    imageAssetPaths: [
+      'assets/images/cuf_0.webp',
+      'assets/images/cuf_1.webp',
+    ],
+    techTools: {
+      TechTool.html,
+    },
+  );
+
   static final projects = {
     _buzz,
     _miTransicion,
@@ -152,5 +178,6 @@ abstract class PortfolioProjects {
     _fundacionSaludSiglo21,
     _centroMedicoCAL,
     _profesionalesDeLaSalud,
+    _centroUrologicoFoscal,
   };
 }

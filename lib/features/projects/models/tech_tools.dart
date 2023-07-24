@@ -1,19 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 enum TechTool {
   nodeJS,
   postgres,
   flutter,
   react,
   firebase,
-  googleCloud,
-  aws,
   docker,
   redis,
   go,
   serverpod,
-  wordpress;
+  html,
+  wordpress,
+  aws,
+  googleCloud,
+  ;
 
   factory TechTool.fromName(String name) {
     return TechTool.values.firstWhere(
@@ -35,6 +34,8 @@ extension LabelExtension on TechTool {
         return 'React';
       case TechTool.firebase:
         return 'Firebase';
+      case TechTool.html:
+        return 'HTML';
       case TechTool.googleCloud:
         return 'Google Cloud';
       case TechTool.aws:
@@ -66,6 +67,8 @@ extension ImagesExtension on TechTool {
         return 'assets/images/tech_tools/react.webp';
       case TechTool.firebase:
         return 'assets/images/tech_tools/firebase.webp';
+      case TechTool.html:
+        return 'assets/images/tech_tools/html.webp';
       case TechTool.googleCloud:
         return 'assets/images/tech_tools/google_cloud.webp';
       case TechTool.aws:
@@ -80,35 +83,6 @@ extension ImagesExtension on TechTool {
         return 'assets/images/tech_tools/serverpod.webp';
       case TechTool.wordpress:
         return 'assets/images/tech_tools/wordpress.webp';
-    }
-  }
-
-  IconData get fontAwesomeIcon {
-    switch (this) {
-      case TechTool.nodeJS:
-        return FontAwesomeIcons.nodeJs;
-      case TechTool.postgres:
-        return FontAwesomeIcons.database;
-      case TechTool.flutter:
-        return FontAwesomeIcons.mobile;
-      case TechTool.react:
-        return FontAwesomeIcons.react;
-      case TechTool.firebase:
-        return FontAwesomeIcons.fire;
-      case TechTool.googleCloud:
-        return FontAwesomeIcons.cloud;
-      case TechTool.aws:
-        return FontAwesomeIcons.aws;
-      case TechTool.docker:
-        return FontAwesomeIcons.docker;
-      case TechTool.redis:
-        return FontAwesomeIcons.memory;
-      case TechTool.go:
-        return FontAwesomeIcons.golang;
-      case TechTool.serverpod:
-        return FontAwesomeIcons.server;
-      case TechTool.wordpress:
-        return FontAwesomeIcons.wordpress;
     }
   }
 }
