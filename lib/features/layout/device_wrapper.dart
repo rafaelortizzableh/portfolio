@@ -12,16 +12,14 @@ class DeviceWrapper extends StatelessWidget {
 
   final Widget child;
 
+  static const routeName = '/';
+
   @override
   Widget build(BuildContext context) {
-    final isMobileLayout =
-        MediaQuery.of(context).size.width <= AppConstants.mobileLayoutMaxWidth;
-    return DeviceWrapperModel(
-      isWithinDeviceFrame: !isMobileLayout,
-      child: _DeviceWrapperLayout(
-        isMobileLayout: isMobileLayout,
-        child: child,
-      ),
+    final isMobileLayout = context.width <= AppConstants.mobileLayoutMaxWidth;
+    return _DeviceWrapperLayout(
+      isMobileLayout: isMobileLayout,
+      child: child,
     );
   }
 }
@@ -42,43 +40,50 @@ class _DeviceWrapperLayout extends StatelessWidget {
     );
     final isMobileDevice = _isMobileDevice(targetPlatform);
 
-    if (isMobileLayout || isMobileDevice) return child;
-
-    return Material(
-      type: MaterialType.canvas,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Expanded(
-            flex: 2,
-            child: InfoSidePanel(),
-          ),
-          Expanded(
-            flex: 4,
-            child: Scaffold(
-              floatingActionButton: const ContactIconsWrap(
-                direction: Axis.vertical,
-              ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.endFloat,
-              appBar: const PortfolioHeader(),
-              body: Padding(
-                padding: AppConstants.horizontalPadding24,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    height: double.infinity,
-                    child: Padding(
-                      padding: AppConstants.verticalPadding8,
-                      child: _DeviceFrameSelector(child: child),
+    final child = (isMobileLayout || isMobileDevice)
+        ? this.child
+        : Material(
+            type: MaterialType.canvas,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Expanded(
+                  flex: 2,
+                  child: InfoSidePanel(),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: Scaffold(
+                    floatingActionButton: const ContactIconsWrap(
+                      direction: Axis.vertical,
+                    ),
+                    floatingActionButtonLocation:
+                        FloatingActionButtonLocation.endFloat,
+                    appBar: const PortfolioHeader(),
+                    body: Padding(
+                      padding: AppConstants.horizontalPadding24,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: SizedBox(
+                          height: double.infinity,
+                          child: Padding(
+                            padding: AppConstants.verticalPadding8,
+                            child: _DeviceFrameSelector(child: this.child),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ),
-        ],
-      ),
+          );
+
+    final isWithinDeviceFrame = !isMobileDevice && !isMobileLayout;
+
+    return DeviceWrapperModel(
+      isWithinDeviceFrame: isWithinDeviceFrame,
+      child: child,
     );
   }
 

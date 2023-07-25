@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'core/core.dart';
-import 'features/features.dart';
 
 class PortfolioApp extends StatelessWidget {
   const PortfolioApp({super.key});
@@ -11,15 +10,13 @@ class PortfolioApp extends StatelessWidget {
     return SpashScreen(
       child: PointerInterfaceDetectorWrapper(
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           color: Palette.black,
           onGenerateTitle: (context) => context.l10n.appName,
           theme: CustomTheme.lightTheme(),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          navigatorKey: AppRouter.navigatorKey,
-          onGenerateRoute: AppRouter.generatePageRoute,
-          builder: (context, child) => DeviceWrapper(child: child!),
-          initialRoute: HomePage.routeName,
+          onGenerateRoute: AppRouter.generateDeviceWrapperPageRoute,
         ),
       ),
     );

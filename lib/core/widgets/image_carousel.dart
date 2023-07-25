@@ -18,6 +18,7 @@ class ImagesCarousel extends StatefulWidget {
 class _ImagesCarouselState extends State<ImagesCarousel> {
   late String selectedImageAsset = widget.initiallySelectedImageAsset;
   late FocusNode focusNode;
+  late final ScrollController _imageSliderScrollController = ScrollController();
 
   @override
   void initState() {
@@ -28,90 +29,91 @@ class _ImagesCarouselState extends State<ImagesCarousel> {
   @override
   void dispose() {
     focusNode.dispose();
+    _imageSliderScrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Material(
-        type: MaterialType.transparency,
-        child: DecoratedBox(
-          decoration: const BoxDecoration(
-            color: Colors.black54,
-          ),
+    return Material(
+      type: MaterialType.transparency,
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          color: Colors.black54,
+        ),
+        child: GestureDetector(
+          // Adding a GestureDetector to dismiss
+          // the dialog when tapping outside of it.
+          //
+          // Note: This is done so we can prevent the default barrier
+          // behavior of the [showDialog] function.
+          behavior: HitTestBehavior.opaque,
+          onTap: Navigator.of(context).pop,
           child: GestureDetector(
-            // Adding a GestureDetector to dismiss
-            // the dialog when tapping outside of it.
-            //
-            // Note: This is done so we can prevent the default barrier
-            // behavior of the [showDialog] function.
-            behavior: HitTestBehavior.opaque,
-            onTap: Navigator.of(context).pop,
-            child: GestureDetector(
-              // Adding another GestureDetector to prevent
-              // the dialog from being dismissed
-              // when tapping inside of it.
-              onTap: () {},
-              child: Center(
-                child: Padding(
-                  padding: AppConstants.padding32,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.asset(
-                                selectedImageAsset,
-                                fit: BoxFit.cover,
-                              ),
+            // Adding another GestureDetector to prevent
+            // the dialog from being dismissed
+            // when tapping inside of it.
+            onTap: () {},
+            child: Center(
+              child: Padding(
+                padding: AppConstants.padding32,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Image.asset(
+                              selectedImageAsset,
+                              fit: BoxFit.cover,
                             ),
-                            const Positioned(
-                              top: 0,
-                              right: 0,
-                              child: CloseFullScreenButton(
-                                color: Colors.white,
-                              ),
+                          ),
+                          const Positioned(
+                            top: 0,
+                            right: 0,
+                            child: CloseFullScreenButton(
+                              color: Colors.white,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 25.0),
-                      FocusableActionDetector(
-                        focusNode: focusNode,
-                        onFocusChange: (_) => focusNode.requestFocus(),
-                        shortcuts: ShortcutIntents.navigateHorizontal(
-                          onNavigate: (direction) {
-                            _navigateHorizontal(direction);
-                          },
-                        ),
-                        actions: ShortcutActions.navigateHorizontal,
-                        child: SizedBox(
-                          height: 80.0,
-                          child: ListView.separated(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => _ImagePreview(
+                    ),
+                    const SizedBox(height: 25.0),
+                    FocusableActionDetector(
+                      focusNode: focusNode,
+                      onFocusChange: (_) => focusNode.requestFocus(),
+                      shortcuts: ShortcutIntents.navigateHorizontal(
+                        onNavigate: (direction) {
+                          _navigateHorizontal(direction);
+                        },
+                      ),
+                      actions: ShortcutActions.navigateHorizontal,
+                      child: SizedBox(
+                        height: 80.0,
+                        child: ListView.separated(
+                          physics: const ClampingScrollPhysics(),
+                          controller: _imageSliderScrollController,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final imageAsset = widget.allImageAssets[index];
+                            return _ImagePreview(
                               onImageSelected: _onImageSelected,
-                              key: ObjectKey(
-                                'image_preview_${widget.allImageAssets[index]}',
-                              ),
-                              imageAsset: widget.allImageAssets[index],
+                              key: _generateObjectKey(imageAsset),
+                              imageAsset: imageAsset,
                               isSelectedImage: selectedImageAsset ==
                                   widget.allImageAssets[index],
-                            ),
-                            separatorBuilder: (_, __) =>
-                                const SizedBox(width: 8.0),
-                            itemCount: widget.allImageAssets.length,
-                          ),
+                            );
+                          },
+                          separatorBuilder: (_, __) =>
+                              AppConstants.horizontalSpacing8,
+                          itemCount: widget.allImageAssets.length,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -120,6 +122,11 @@ class _ImagesCarouselState extends State<ImagesCarousel> {
       ),
     );
   }
+
+  static Key _generateObjectKey(
+    String imageAsset,
+  ) =>
+      Key('image_preview_$imageAsset');
 
   void _navigateHorizontal(
     NavigateListHorizonalDirection direction,
@@ -155,6 +162,17 @@ class _ImagesCarouselState extends State<ImagesCarousel> {
     setState(() {
       selectedImageAsset = imageAsset;
     });
+    _animateToImage(imageAsset);
+  }
+
+  void _animateToImage(String imageAsset) {
+    final index = widget.allImageAssets.indexOf(imageAsset);
+    final offset = index * _ImagePreview._imageWidth;
+    _imageSliderScrollController.animateTo(
+      offset,
+      duration: kThemeAnimationDuration,
+      curve: Curves.easeInOut,
+    );
   }
 }
 
@@ -170,6 +188,8 @@ class _ImagePreview extends StatelessWidget {
   final String imageAsset;
   final Function(String) onImageSelected;
 
+  static const _imageWidth = 110.0;
+
   @override
   Widget build(BuildContext context) {
     return Focus(
@@ -178,7 +198,7 @@ class _ImagePreview extends StatelessWidget {
         child: InkWell(
           onTap: () => onImageSelected(imageAsset),
           child: Container(
-            width: 110.0,
+            width: _imageWidth,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               border: Border.all(

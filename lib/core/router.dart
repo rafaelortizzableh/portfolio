@@ -6,7 +6,20 @@ import 'core.dart';
 abstract class AppRouter {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
-  static Route generatePageRoute(
+  static Route generateDeviceWrapperPageRoute(RouteSettings settings) {
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (context) => DeviceWrapper(
+        child: Navigator(
+          key: navigatorKey,
+          onGenerateRoute: _generatePageRoute,
+          initialRoute: HomePage.routeName,
+        ),
+      ),
+    );
+  }
+
+  static Route _generatePageRoute(
     RouteSettings settings,
   ) {
     switch (settings.name) {

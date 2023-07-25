@@ -308,18 +308,30 @@ class _ProjectPageState extends State<ProjectPage>
     final navigator = Navigator.of(context);
     _toggleTitleShown(false);
 
-    unawaited(
-      navigator
-          .pushNamed(
-            ProjectDetailsPage.routeName,
-            arguments: ProjectDetailsPageArguments(
-              portfolioProject: widget.portfolioProject,
-            ),
-          )
-          .then(
-            (_) => _toggleTitleShown(true),
+    final physicalSize = View.of(context).physicalSize;
+    final isMobileLayout =
+        physicalSize.width <= AppConstants.mobileLayoutMaxWidth;
+
+    if (!isMobileLayout) {
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        useRootNavigator: true,
+        builder: (context) => ProjectDetailsFullScreenDialog(
+          portfolioProject: widget.portfolioProject,
+        ),
+      ).then((_) => _toggleTitleShown(true));
+      return;
+    }
+
+    unawaited(navigator
+        .pushNamed(
+          ProjectDetailsPage.routeName,
+          arguments: ProjectDetailsPageArguments(
+            portfolioProject: widget.portfolioProject,
           ),
-    );
+        )
+        .then((_) => _toggleTitleShown(true)));
   }
 
   void _showImage({
@@ -328,15 +340,16 @@ class _ProjectPageState extends State<ProjectPage>
     required String heroTag,
   }) {
     final navigator = Navigator.of(context);
-    final deviceWidth = context.width;
 
-    final isMobileLayout = deviceWidth <= AppConstants.mobileLayoutMaxWidth;
+    final isWithinMobileFrame =
+        DeviceWrapperModel.isWithinDeviceFrameOf(context);
 
-    if (!isMobileLayout) {
+    if (isWithinMobileFrame) {
       unawaited(
         showDialog(
           barrierDismissible: true,
           context: context,
+          useRootNavigator: true,
           builder: (context) => ImagesCarousel(
             allImageAssets: imageAssetPaths,
             initiallySelectedImageAsset: imageAsset,

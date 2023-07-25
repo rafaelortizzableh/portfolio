@@ -15,11 +15,13 @@ class ProjectDetailsPage extends StatelessWidget {
   const ProjectDetailsPage({
     super.key,
     required this.portfolioProject,
+    this.isShownInFullScreenDialog = false,
   });
 
   static const routeName = 'project_details';
 
   final PortfolioProject portfolioProject;
+  final bool isShownInFullScreenDialog;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,13 @@ class ProjectDetailsPage extends StatelessWidget {
           body: SafeArea(
             child: Stack(
               children: [
+                if (isShownInFullScreenDialog) ...[
+                  SizedBox.expand(
+                    child: GestureDetector(
+                      onTap: Navigator.of(context).pop,
+                    ),
+                  ),
+                ],
                 SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

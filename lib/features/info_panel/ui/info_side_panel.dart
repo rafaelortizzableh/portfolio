@@ -32,6 +32,15 @@ class InfoSidePanel extends StatelessWidget {
               ),
               AppConstants.verticalSpacing24,
               Text(
+                context.l10n.toolsAndTechnologies.toUpperCase(),
+                style: _subTitlesTextStyle,
+              ),
+              AppConstants.verticalSpacing8,
+              TechToolsWrap(
+                techTools: Set.from(TechTool.values),
+              ),
+              AppConstants.verticalSpacing16,
+              Text(
                 context.l10n.languages.toUpperCase(),
                 style: _subTitlesTextStyle,
               ),
@@ -45,15 +54,6 @@ class InfoSidePanel extends StatelessWidget {
                       ),
                     )
                     .toList(),
-              ),
-              AppConstants.verticalSpacing16,
-              Text(
-                context.l10n.toolsAndTechnologies.toUpperCase(),
-                style: _subTitlesTextStyle,
-              ),
-              AppConstants.verticalSpacing8,
-              TechToolsWrap(
-                techTools: Set.from(TechTool.values),
               ),
             ],
           ),
