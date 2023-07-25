@@ -19,6 +19,7 @@ abstract class PortfolioProjects {
       TechTool.redis,
       TechTool.docker,
       TechTool.aws,
+      TechTool.figma,
     },
     imageLogoAssetPath: 'assets/logos/buzz_logo.webp',
     website: Uri.parse('https://joinbuzz.com'),
@@ -50,6 +51,7 @@ abstract class PortfolioProjects {
       TechTool.flutter,
       TechTool.firebase,
       TechTool.nodeJS,
+      TechTool.figma,
     },
     imageLogoAssetPath: 'assets/logos/mi_transicion_logo.webp',
     playStoreUrl: Uri.parse(
@@ -113,6 +115,7 @@ abstract class PortfolioProjects {
       TechTool.postgres,
       TechTool.flutter,
       TechTool.wordpress,
+      TechTool.figma,
     },
   );
 
@@ -168,6 +171,24 @@ abstract class PortfolioProjects {
     ],
     techTools: {
       TechTool.html,
+      TechTool.figma,
+    },
+  );
+
+  static final _spectMedicinaNuclear = PortfolioProject(
+    title: 'Spect Medicina Nuclear',
+    description: '- Created a website for the medical practice.\n'
+        '- Provided maintenance and support for the medical practice\'s website.\n'
+        '- Created and implemented a successful SEO strategy for the medical practice.',
+    imageLogoAssetPath: 'assets/logos/spect_logo.webp',
+    website: Uri.parse('https://spectmedicinanuclear.com'),
+    featuredImageAssetPath: 'assets/images/spect_0.webp',
+    imageAssetPaths: [
+      'assets/images/spect_0.webp',
+    ],
+    techTools: {
+      TechTool.html,
+      TechTool.figma,
     },
   );
 
@@ -179,5 +200,6 @@ abstract class PortfolioProjects {
     _centroMedicoCAL,
     _profesionalesDeLaSalud,
     _centroUrologicoFoscal,
+    _spectMedicinaNuclear,
   };
 }

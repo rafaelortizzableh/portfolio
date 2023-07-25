@@ -9,6 +9,7 @@ enum TechTool {
   go,
   serverpod,
   html,
+  figma,
   wordpress,
   aws,
   googleCloud,
@@ -36,6 +37,8 @@ extension LabelExtension on TechTool {
         return 'Firebase';
       case TechTool.html:
         return 'HTML';
+      case TechTool.figma:
+        return 'Figma';
       case TechTool.googleCloud:
         return 'Google Cloud';
       case TechTool.aws:
@@ -69,6 +72,8 @@ extension ImagesExtension on TechTool {
         return 'assets/images/tech_tools/firebase.webp';
       case TechTool.html:
         return 'assets/images/tech_tools/html.webp';
+      case TechTool.figma:
+        return 'assets/images/tech_tools/figma.webp';
       case TechTool.googleCloud:
         return 'assets/images/tech_tools/google_cloud.webp';
       case TechTool.aws:
