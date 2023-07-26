@@ -308,9 +308,7 @@ class _ProjectPageState extends State<ProjectPage>
     final navigator = Navigator.of(context);
     _toggleTitleShown(false);
 
-    final physicalSize = View.of(context).physicalSize;
-    final isMobileLayout =
-        physicalSize.width <= AppConstants.mobileLayoutMaxWidth;
+    final isMobileLayout = context.width <= AppConstants.mobileLayoutMaxWidth;
 
     if (!isMobileLayout) {
       showDialog(

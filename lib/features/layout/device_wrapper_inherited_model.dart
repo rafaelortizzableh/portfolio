@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DeviceWrapperModel extends InheritedModel<_DeviceWrapperAspect> {
+class DeviceWrapperModel extends InheritedModel<DeviceWrapperAspect> {
   const DeviceWrapperModel({
     super.key,
     this.isWithinDeviceFrame,
@@ -11,7 +11,7 @@ class DeviceWrapperModel extends InheritedModel<_DeviceWrapperAspect> {
 
   static bool isWithinDeviceFrameOf(BuildContext context) {
     return InheritedModel.inheritFrom<DeviceWrapperModel>(context,
-                aspect: _DeviceWrapperAspect.isWithinDeviceFrame)
+                aspect: DeviceWrapperAspect.isWithinDeviceFrame)
             ?.isWithinDeviceFrame ??
         false;
   }
@@ -24,19 +24,16 @@ class DeviceWrapperModel extends InheritedModel<_DeviceWrapperAspect> {
   @override
   bool updateShouldNotifyDependent(
     DeviceWrapperModel oldWidget,
-    // ignore: library_private_types_in_public_api
-    Set<_DeviceWrapperAspect> dependencies,
+    Set<DeviceWrapperAspect> dependencies,
   ) {
-    if (isWithinDeviceFrame != oldWidget.isWithinDeviceFrame &&
+    final shouldNotify = isWithinDeviceFrame != oldWidget.isWithinDeviceFrame &&
         dependencies.contains(
-          _DeviceWrapperAspect.isWithinDeviceFrame,
-        )) {
-      return true;
-    }
-    return false;
+          DeviceWrapperAspect.isWithinDeviceFrame,
+        );
+    return shouldNotify;
   }
 }
 
-enum _DeviceWrapperAspect {
+enum DeviceWrapperAspect {
   isWithinDeviceFrame,
 }
