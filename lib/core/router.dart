@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../features/features.dart';
@@ -22,6 +24,7 @@ abstract class AppRouter {
   static Route _generatePageRoute(
     RouteSettings settings,
   ) {
+    log('[ROUTER] => ${settings.name}');
     switch (settings.name) {
       case HomePage.routeName:
         return _getPageRoute(

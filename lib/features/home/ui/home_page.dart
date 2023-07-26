@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
     super.key,
   });
 
-  static const routeName = '/home';
+  static const routeName = '/';
 
   @override
   Widget build(BuildContext context) {

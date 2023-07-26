@@ -12,14 +12,15 @@ class DeviceWrapper extends StatelessWidget {
 
   final Widget child;
 
-  static const routeName = '/';
-
   @override
   Widget build(BuildContext context) {
     final isMobileLayout = context.width <= AppConstants.mobileLayoutMaxWidth;
-    return _DeviceWrapperLayout(
-      isMobileLayout: isMobileLayout,
-      child: child,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: _DeviceWrapperLayout(
+        isMobileLayout: isMobileLayout,
+        child: child,
+      ),
     );
   }
 }
