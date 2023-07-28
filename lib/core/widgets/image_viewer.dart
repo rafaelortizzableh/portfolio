@@ -99,10 +99,9 @@ class _ImageViewerState extends State<ImageViewer>
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Expanded(
-                          flex: 4,
                           child: Hero(
-                            transitionOnUserGestures: true,
                             tag: widget.heroTag,
+                            transitionOnUserGestures: true,
                             child: _Image(
                               imageAsset: widget.imageAsset,
                               imageUrl: widget.imageUrl,

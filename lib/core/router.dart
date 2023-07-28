@@ -14,6 +14,9 @@ abstract class AppRouter {
       builder: (context) => DeviceWrapper(
         child: Navigator(
           key: navigatorKey,
+          observers: [
+            HeroController(),
+          ],
           onGenerateRoute: _generatePageRoute,
           initialRoute: HomePage.routeName,
         ),

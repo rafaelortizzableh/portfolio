@@ -16,16 +16,13 @@ class PorfolioImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Hero(
-          tag: heroTag,
-          child: FadingAssetImage(
-            path: imageAsset,
-          ),
+    return Center(
+      child: Hero(
+        tag: heroTag,
+        child: FadingAssetImage(
+          path: imageAsset,
         ),
-      ],
+      ),
     );
   }
 }
