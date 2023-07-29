@@ -151,6 +151,8 @@ abstract class PortfolioProjects {
     ],
     techTools: {
       TechTool.wordpress,
+      TechTool.figma,
+      TechTool.html,
     },
   );
 
@@ -192,6 +194,24 @@ abstract class PortfolioProjects {
     },
   );
 
+  static final _elCieloDeMila = PortfolioProject(
+    title: 'El Cielo de Mila',
+    description: '- Created a website for the non-profit store.\n'
+        '- Provided maintenance and support for the non-profit\'s website.\n',
+    imageLogoAssetPath: 'assets/logos/ecdm_logo.webp',
+    website: Uri.parse('https://elcielodemila.com'),
+    featuredImageAssetPath: 'assets/images/ecdm_0.webp',
+    imageAssetPaths: [
+      'assets/images/ecdm_0.webp',
+      'assets/images/ecdm_1.webp',
+    ],
+    techTools: {
+      TechTool.html,
+      TechTool.figma,
+      TechTool.wordpress,
+    },
+  );
+
   static final projects = {
     _buzz,
     _miTransicion,
@@ -201,5 +221,6 @@ abstract class PortfolioProjects {
     _profesionalesDeLaSalud,
     _centroUrologicoFoscal,
     _spectMedicinaNuclear,
+    _elCieloDeMila,
   };
 }
