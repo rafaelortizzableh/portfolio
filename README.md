@@ -1,3 +1,3 @@
-# portfolio_roz
+# Rafael Ortiz Zableh's Portfolio
 
-A new Flutter project.
+This is a simple portfolio web app built with Flutter. It showcases some of the projects I've worked on.
