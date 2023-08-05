@@ -212,6 +212,27 @@ abstract class PortfolioProjects {
     },
   );
 
+  static final _aquaBottles = PortfolioProject(
+    title: 'Aqua bottles',
+    description:
+        '- Created an e-commerce website for the water bottles business.\n'
+        '- Created serverless automations to record new purchases and abandonded shopping carts on Google Sheets and send notifications on Telegram.\n'
+        '- Provided maintenance and support for the website.\n',
+    imageLogoAssetPath: 'assets/logos/aqua_logo.webp',
+    featuredImageAssetPath: 'assets/images/aqua_0.webp',
+    website: Uri.parse('https://aqua-col.com'),
+    imageAssetPaths: [
+      'assets/images/aqua_0.webp',
+      'assets/images/aqua_1.webp',
+    ],
+    techTools: {
+      TechTool.nodeJS,
+      TechTool.wordpress,
+      TechTool.figma,
+      TechTool.html,
+    },
+  );
+
   static final projects = {
     _buzz,
     _miTransicion,
@@ -221,6 +242,7 @@ abstract class PortfolioProjects {
     _profesionalesDeLaSalud,
     _centroUrologicoFoscal,
     _spectMedicinaNuclear,
+    _aquaBottles,
     _elCieloDeMila,
   };
 }
