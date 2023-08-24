@@ -306,7 +306,7 @@ abstract class PortfolioProjects {
   );
 
   static final _ingeoExpert = PortfolioProject(
-    title: 'Ingeo Expert',
+    title: 'Ingeoexpert',
     description:
         'Developed features for the e-learning platform\'s mobile app.\n'
         '- Created a custom video player that allows users to view videos without using Vimeo.\n'
