@@ -70,7 +70,10 @@ abstract class PortfolioProjects {
   static final _zurichOneApp = PortfolioProject(
     title: 'Zurich One App',
     description:
-        'Built features for the One Zurich App mobile app. Among the challenges faced were: adding MSAL support with Platform Channels and adding support for SVG floor plane maps. \nHelped implement a Flutter Web backoffice for the app\'s content management system.',
+        'Built features for the One Zurich App mobile app.\nAmong the challenges faced by my team were:\n'
+        '- Adding support for MSAL through Platform Channels (Swift + Kotlin).\n'
+        '- Adding support for SVG floor plane maps.\n'
+        '- Implementing a custom a Flutter Web backoffice for the app\'s content management system.',
     techTools: {
       TechTool.flutter,
     },
