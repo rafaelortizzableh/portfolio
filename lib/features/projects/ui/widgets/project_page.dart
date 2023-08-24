@@ -209,7 +209,7 @@ class _ProjectPageState extends State<ProjectPage>
                             imageAsset: imageAsset,
                             index: _currentImageIndex,
                           );
-                          _showImage(
+                          _onShowImage(
                             imageAsset: imageAsset,
                             imageAssetPaths: imageAssetPaths,
                             heroTag: heroTag,
@@ -308,17 +308,24 @@ class _ProjectPageState extends State<ProjectPage>
     final navigator = Navigator.of(context);
     _toggleTitleShown(false);
 
-    final isMobileLayout = context.width <= AppConstants.mobileLayoutMaxWidth;
+    final isWithinMobileFrame =
+        DeviceWrapperModel.isWithinDeviceFrameOf(context);
 
-    if (!isMobileLayout) {
-      showDialog(
-        context: context,
-        barrierDismissible: true,
-        useRootNavigator: true,
-        builder: (context) => ProjectDetailsFullScreenDialog(
-          portfolioProject: widget.portfolioProject,
-        ),
-      ).then((_) => _toggleTitleShown(true));
+    if (isWithinMobileFrame) {
+      showModalBottomSheet(
+          context: context,
+          useRootNavigator: true,
+          isScrollControlled: true,
+          barrierColor: Colors.transparent,
+          backgroundColor: Colors.black.withOpacity(0.75),
+          builder: (context) {
+            return FractionallySizedBox(
+              heightFactor: 0.95,
+              child: ProjectDetailsFullScreenDialog(
+                portfolioProject: widget.portfolioProject,
+              ),
+            );
+          }).then((_) => _toggleTitleShown(true));
       return;
     }
 
@@ -332,7 +339,7 @@ class _ProjectPageState extends State<ProjectPage>
         .then((_) => _toggleTitleShown(true)));
   }
 
-  void _showImage({
+  void _onShowImage({
     required String imageAsset,
     required List<String> imageAssetPaths,
     required String heroTag,
