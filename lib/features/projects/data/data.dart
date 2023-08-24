@@ -251,6 +251,47 @@ abstract class PortfolioProjects {
     techTools: {
       TechTool.flutter,
       TechTool.figma,
+      TechTool.firebase,
+    },
+  );
+
+  static final _allInBiking = PortfolioProject(
+    title: 'All in Biking',
+    description:
+        'Designed and developed the first iteration of the MVP of a mobile application that allows '
+        'bike owners to register their bikes, and in case of theft, report it and get help from the community to find it; as well as ride with other bikers.',
+    imageLogoAssetPath: 'assets/logos/aib_logo.webp',
+    featuredImageAssetPath: 'assets/images/aib_0.webp',
+    imageAssetPaths: [
+      'assets/images/aib_0.webp',
+      'assets/images/aib_1.webp',
+      'assets/images/aib_2.webp',
+      'assets/images/aib_3.webp',
+    ],
+    website: Uri.parse('https://allinbiking.com'),
+    techTools: {
+      TechTool.html,
+      TechTool.figma,
+    },
+  );
+
+  static const _descupApp = PortfolioProject(
+    title: 'Descup App',
+    description:
+        'Developed features and fixed bugs for the Descup App mobile app.\nThe app allows users to find better deals for their utilities.',
+    imageLogoAssetPath: 'assets/logos/descup_logo.webp',
+    featuredImageAssetPath: 'assets/images/descup_0.webp',
+    imageAssetPaths: [
+      'assets/images/descup_0.webp',
+      'assets/images/descup_1.webp',
+      'assets/images/descup_2.webp',
+      'assets/images/descup_3.webp',
+    ],
+    techTools: {
+      TechTool.flutter,
+      TechTool.firebase,
+      TechTool.nodeJS,
+      TechTool.figma,
     },
   );
 
@@ -266,5 +307,7 @@ abstract class PortfolioProjects {
     _aquaBottles,
     _elCieloDeMila,
     _mascooty,
+    _allInBiking,
+    _descupApp,
   };
 }
