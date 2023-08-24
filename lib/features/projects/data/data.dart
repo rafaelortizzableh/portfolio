@@ -233,6 +233,27 @@ abstract class PortfolioProjects {
     },
   );
 
+  static final _mascooty = PortfolioProject(
+    title: 'Mascooty',
+    description:
+        'Designed and developed the MVP of a mobile application that allows '
+        'pet owners to sell and buy pet products and services.',
+    imageLogoAssetPath: 'assets/logos/mascooty_logo.webp',
+    featuredImageAssetPath: 'assets/images/mascooty_0.webp',
+    imageAssetPaths: [
+      'assets/images/mascooty_0.webp',
+      'assets/images/mascooty_1.webp',
+      'assets/images/mascooty_2.webp',
+    ],
+    playStoreUrl: Uri.parse(
+      'https://play.google.com/store/apps/details?id=com.mascooty.app',
+    ),
+    techTools: {
+      TechTool.flutter,
+      TechTool.figma,
+    },
+  );
+
   static final projects = {
     _buzz,
     _miTransicion,
@@ -244,5 +265,6 @@ abstract class PortfolioProjects {
     _spectMedicinaNuclear,
     _aquaBottles,
     _elCieloDeMila,
+    _mascooty,
   };
 }
