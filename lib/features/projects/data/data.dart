@@ -323,7 +323,15 @@ abstract class PortfolioProjects {
       'assets/images/ingeo_3.webp',
       'assets/images/ingeo_4.webp',
     ],
-    website: Uri.parse('https://ingeoexpert.com'),
+    website: Uri.parse(
+      'https://ingeoexpert.com',
+    ),
+    playStoreUrl: Uri.parse(
+      'https://play.google.com/store/apps/details?id=com.ingeoexpert.mobile',
+    ),
+    appStoreUrl: Uri.parse(
+      'https://apps.apple.com/es/app/ingeoexpert/id1624441829',
+    ),
     techTools: {
       TechTool.html,
       TechTool.figma,
