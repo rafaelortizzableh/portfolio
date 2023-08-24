@@ -275,7 +275,7 @@ abstract class PortfolioProjects {
     },
   );
 
-  static const _descupApp = PortfolioProject(
+  static final _descupApp = PortfolioProject(
     title: 'Descup App',
     description:
         'Developed features and fixed bugs for the Descup App mobile app.\nThe app allows users to find better deals for their utilities.',
@@ -287,6 +287,12 @@ abstract class PortfolioProjects {
       'assets/images/descup_2.webp',
       'assets/images/descup_3.webp',
     ],
+    playStoreUrl: Uri.parse(
+      'https://play.google.com/store/apps/details?id=com.descup.app',
+    ),
+    appStoreUrl: Uri.parse(
+      'https://play.google.com/store/apps/details?id=com.descup.app',
+    ),
     techTools: {
       TechTool.flutter,
       TechTool.firebase,
