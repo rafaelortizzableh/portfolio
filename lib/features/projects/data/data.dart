@@ -278,7 +278,8 @@ abstract class PortfolioProjects {
   static final _descupApp = PortfolioProject(
     title: 'Descup App',
     description:
-        'Developed features and fixed bugs for the Descup App mobile app.\nThe app allows users to find better deals for their utilities.',
+        'Developed features and fixed bugs for the Descup App mobile app.\n'
+        'The app allows users to find better deals for their utilities.',
     imageLogoAssetPath: 'assets/logos/descup_logo.webp',
     featuredImageAssetPath: 'assets/images/descup_0.webp',
     imageAssetPaths: [
@@ -301,6 +302,31 @@ abstract class PortfolioProjects {
     },
   );
 
+  static final _ingeoExpert = PortfolioProject(
+    title: 'Ingeo Expert',
+    description:
+        'Developed features for the e-learning platform\'s mobile app.\n'
+        '- Created a custom video player that allows users to view videos without using Vimeo.\n'
+        '- Created a custom PDF viewer that allows users to view PDFs without using Google Drive.\n'
+        '- Integrated the app with Wordpress and Moodle APIs to allow users to purchase and view courses.\n'
+        '- Added support for social media login.\n'
+        '- Improve the app\'s UX/UI design based on requirements.\n',
+    imageLogoAssetPath: 'assets/logos/ingeo_logo.webp',
+    featuredImageAssetPath: 'assets/images/ingeo_0.webp',
+    imageAssetPaths: [
+      'assets/images/ingeo_0.webp',
+      'assets/images/ingeo_1.webp',
+      'assets/images/ingeo_2.webp',
+      'assets/images/ingeo_3.webp',
+      'assets/images/ingeo_4.webp',
+    ],
+    website: Uri.parse('https://ingeoexpert.com'),
+    techTools: {
+      TechTool.html,
+      TechTool.figma,
+    },
+  );
+
   static final projects = {
     _buzz,
     _miTransicion,
@@ -315,5 +341,6 @@ abstract class PortfolioProjects {
     _mascooty,
     _allInBiking,
     _descupApp,
+    _ingeoExpert,
   };
 }
