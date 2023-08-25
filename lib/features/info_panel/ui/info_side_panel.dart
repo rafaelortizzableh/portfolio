@@ -38,6 +38,7 @@ class InfoSidePanel extends StatelessWidget {
               AppConstants.verticalSpacing8,
               TechToolsWrap(
                 techTools: Set.from(TechTool.values),
+                shouldhighlightTopTechTools: true,
               ),
               AppConstants.verticalSpacing16,
               Text(

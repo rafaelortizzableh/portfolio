@@ -1,19 +1,26 @@
+// ignore_for_file: sort_constructors_first
+
 enum TechTool {
-  nodeJS,
+  flutter(isTopTechTool: true),
   postgres,
-  flutter,
-  react,
-  firebase,
+  nodeJS(isTopTechTool: true),
   docker,
-  redis,
-  go,
-  serverpod,
+  firebase(isTopTechTool: true),
   html,
-  figma,
+  react(isTopTechTool: true),
+  go,
+  serverpod(),
+  redis,
+  figma(),
   wordpress,
   aws,
-  googleCloud,
-  ;
+  googleCloud;
+
+  final bool isTopTechTool;
+
+  const TechTool({
+    this.isTopTechTool = false,
+  });
 
   factory TechTool.fromName(String name) {
     return TechTool.values.firstWhere(
