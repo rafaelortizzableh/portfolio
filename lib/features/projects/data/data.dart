@@ -273,6 +273,8 @@ abstract class PortfolioProjects {
     ],
     website: Uri.parse('https://allinbiking.com'),
     techTools: {
+      TechTool.flutter,
+      TechTool.firebase,
       TechTool.html,
       TechTool.figma,
     },
@@ -333,7 +335,8 @@ abstract class PortfolioProjects {
       'https://apps.apple.com/es/app/ingeoexpert/id1624441829',
     ),
     techTools: {
-      TechTool.html,
+      TechTool.flutter,
+      TechTool.firebase,
       TechTool.figma,
     },
   );
