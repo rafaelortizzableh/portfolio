@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-
 import 'package:flutter/material.dart';
 
 import '../core.dart';
@@ -69,55 +68,60 @@ class _ImageViewerState extends State<ImageViewer>
   Widget build(BuildContext context) {
     final transformationController = _transformationController;
     final animationController = _animationController;
-    return StatusBarWrapper(
-      statusBarStyle: StatusBarStyle.light,
-      child: SafeArea(
-        bottom: false,
-        top: true,
-        child: Scaffold(
-          extendBodyBehindAppBar: true,
-          backgroundColor: Colors.black,
-          body: Stack(
-            children: [
-              Center(
-                child: GestureDetector(
-                  onDoubleTapDown: (details) => _handleDoubleTapDown(
-                    details,
-                    _tapDownDetailsNotifier,
-                  ),
-                  onDoubleTap: () => _handleDoubleTap(
-                    transformationController,
-                    animationController,
-                    _tapDownDetailsNotifier.value,
-                    _animationNotifier,
-                  ),
-                  child: InteractiveViewer(
-                    transformationController: transformationController,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: Hero(
-                            tag: widget.heroTag,
-                            transitionOnUserGestures: true,
-                            child: _Image(
-                              imageAsset: widget.imageAsset,
-                              imageUrl: widget.imageUrl,
+    return SizedBox.expand(
+      child: ColoredBox(
+        color: Colors.black,
+        child: StatusBarWrapper(
+          statusBarStyle: StatusBarStyle.light,
+          child: SafeArea(
+            bottom: false,
+            top: true,
+            child: Scaffold(
+              extendBodyBehindAppBar: true,
+              backgroundColor: Colors.black,
+              body: Stack(
+                children: [
+                  Center(
+                    child: GestureDetector(
+                      onDoubleTapDown: (details) => _handleDoubleTapDown(
+                        details,
+                        _tapDownDetailsNotifier,
+                      ),
+                      onDoubleTap: () => _handleDoubleTap(
+                        transformationController,
+                        animationController,
+                        _tapDownDetailsNotifier.value,
+                        _animationNotifier,
+                      ),
+                      child: InteractiveViewer(
+                        transformationController: transformationController,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: Hero(
+                                tag: widget.heroTag,
+                                transitionOnUserGestures: true,
+                                child: _Image(
+                                  imageAsset: widget.imageAsset,
+                                  imageUrl: widget.imageUrl,
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                  const Positioned(
+                    top: kToolbarHeight,
+                    child: CloseFullScreenButton(color: Colors.white),
+                  ),
+                ],
               ),
-              const Positioned(
-                top: kToolbarHeight,
-                child: CloseFullScreenButton(color: Colors.white),
-              ),
-            ],
+            ),
           ),
         ),
       ),

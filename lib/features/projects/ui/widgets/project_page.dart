@@ -119,6 +119,7 @@ class _ProjectPageState extends State<ProjectPage>
                           _toggleTitleShown(!_isDetailsPreviewPanelShown),
                       child: SizedBox(
                         child: PageView.builder(
+                          physics: const ClampingScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           itemCount:
                               widget.portfolioProject.imageAssetPaths.length,

@@ -7,7 +7,7 @@ class PortfolioApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SpashScreen(
+    return SplashScreen(
       child: PointerInterfaceDetectorWrapper(
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

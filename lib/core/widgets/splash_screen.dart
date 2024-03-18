@@ -3,8 +3,8 @@ import 'package:flutter/rendering.dart';
 
 import '../core.dart';
 
-class SpashScreen extends StatefulWidget {
-  const SpashScreen({
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({
     super.key,
     required this.child,
   });
@@ -12,10 +12,10 @@ class SpashScreen extends StatefulWidget {
   final Widget child;
 
   @override
-  State<SpashScreen> createState() => _SpashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SpashScreenState extends State<SpashScreen> {
+class _SplashScreenState extends State<SplashScreen> {
   late final Future<void> _precacheFuture;
   static const _animationDuration = Duration(milliseconds: 1500);
 

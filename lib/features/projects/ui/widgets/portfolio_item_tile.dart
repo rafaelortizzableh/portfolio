@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../../features.dart';
 import '../../../../core/core.dart';
+import '../../../features.dart';
 
 class ProjectItemTile extends StatelessWidget {
   const ProjectItemTile({
@@ -53,6 +53,9 @@ class ProjectItemTile extends StatelessWidget {
                       portfolioProject.title,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
+                      style: context.textTheme.titleMedium?.copyWith(
+                        color: Palette.white,
+                      ),
                     ),
                   ),
                 ],

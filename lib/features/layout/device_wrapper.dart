@@ -15,8 +15,8 @@ class DeviceWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobileLayout = context.width <= AppConstants.mobileLayoutMaxWidth;
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: _DeviceWrapperLayout(
         isMobileLayout: isMobileLayout,
         child: child,
