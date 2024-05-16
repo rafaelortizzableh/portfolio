@@ -17,6 +17,7 @@ class ContactIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.small(
+      tooltip: contactIconAndLink.url.toString(),
       shape: const RoundedRectangleBorder(
         borderRadius: AppConstants.borderRadius16,
       ),

@@ -26,6 +26,7 @@ class ProjectRelevantLinks extends StatelessWidget {
         if (website != null) ...[
           AppConstants.horizontalSpacing4,
           IconButton(
+            tooltip: website.toString(),
             icon: const Icon(
               FontAwesomeIcons.link,
               color: Palette.white,
@@ -41,6 +42,7 @@ class ProjectRelevantLinks extends StatelessWidget {
         if (youtubeDemoUrl != null) ...[
           AppConstants.horizontalSpacing4,
           IconButton(
+            tooltip: youtubeDemoUrl.toString(),
             icon: const Icon(
               FontAwesomeIcons.youtube,
               color: Palette.white,
@@ -56,6 +58,7 @@ class ProjectRelevantLinks extends StatelessWidget {
         if (appStoreUrl != null) ...[
           AppConstants.horizontalSpacing4,
           IconButton(
+            tooltip: appStoreUrl.toString(),
             icon: const Icon(
               FontAwesomeIcons.appStore,
               color: Palette.white,
@@ -71,6 +74,7 @@ class ProjectRelevantLinks extends StatelessWidget {
         if (playStoreUrl != null) ...[
           AppConstants.horizontalSpacing4,
           IconButton(
+            tooltip: playStoreUrl.toString(),
             icon: const Icon(
               FontAwesomeIcons.googlePlay,
               color: Palette.white,

@@ -19,7 +19,7 @@ class HomeSliverProjectsList extends StatelessWidget {
 
         return ProjectItemTile(
           portfolioProject: project,
-          key: ObjectKey('project-item-tile-$project-$index'),
+          key: ValueKey('project-item-tile-$project-$index'),
         );
       },
     );

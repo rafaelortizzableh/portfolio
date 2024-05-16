@@ -39,7 +39,7 @@ class ImageControls extends StatelessWidget {
                 child: IgnorePointer(
                   ignoring: !shouldShowPreviousImageButton,
                   child: GenericIconButton(
-                    key: ObjectKey(
+                    key: ValueKey(
                       'previous_image_button_$projectTitle',
                     ),
                     icon: Icons.arrow_circle_up,
@@ -54,7 +54,7 @@ class ImageControls extends StatelessWidget {
                 child: IgnorePointer(
                   ignoring: !shouldShowNextImageButton,
                   child: GenericIconButton(
-                    key: ObjectKey(
+                    key: ValueKey(
                       'next_image_button_$projectTitle',
                     ),
                     icon: Icons.arrow_circle_down,

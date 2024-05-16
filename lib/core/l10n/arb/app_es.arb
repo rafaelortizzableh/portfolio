@@ -16,6 +16,15 @@
   "fullScreenCta": "Pantalla completa",
   "previousImageCta": "Imagen anterior",
   "nextImageCta": "Imagen siguiente",
+  "viewProjectCta": "Ver proyecto de {project}",
+  "@viewProjectCta": {
+    "placeholders": {
+      "project": {
+        "type": "String",
+        "example": "Nombre del proyecto"
+      }
+    }
+  },
   "viewMoreDetailsCta": "Ver más detalles",
   "toolsAndTechnologies": "Herramientas y tecnologías"
 }

@@ -75,7 +75,7 @@ abstract class AppRouter {
           settings: settings,
           isModalBottomSheet: false,
           child: _Four0FourWidget(
-            key: ObjectKey(settings.name),
+            key: ValueKey(settings.name),
           ),
         );
     }

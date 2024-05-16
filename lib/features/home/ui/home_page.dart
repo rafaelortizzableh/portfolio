@@ -21,8 +21,10 @@ class HomePage extends StatelessWidget {
         : AppConstants.emptySpace;
     final slivers = [
       HomeSliverAppBar(isWithinDeviceFrame: isWithinDeviceFrame),
-      const SliverPadding(padding: AppConstants.verticalPadding8),
-      const HomeSliverProjectsList(),
+      const SliverPadding(
+        padding: AppConstants.verticalPadding16,
+        sliver: HomeSliverProjectsList(),
+      ),
     ];
 
     return StatusBarWrapper(
