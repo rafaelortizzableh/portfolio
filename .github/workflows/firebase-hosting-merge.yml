@@ -18,7 +18,7 @@ jobs:
         env:
           TELEPHONE_NUMBER: ${{ secrets.TELEPHONE_NUMBER }}
           EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
-        run: flutter build web --dart-define=GITHUB_LINK=https://github.com/rafaelortizzableh --dart-define=LINKEDIN_LINK=https://linkedin.com/in/rafaelortizzableh --dart-define=TWITTER_LINK=https://twitter.com/ortizzableh --dart-define=PHONE_LINK=tel:$TELEPHONE_NUMBER --dart-define=EMAIL_LINK=mailto:$EMAIL_ADDRESS 
+        run: flutter build web --wasm --dart-define=GITHUB_LINK=https://github.com/rafaelortizzableh --dart-define=LINKEDIN_LINK=https://linkedin.com/in/rafaelortizzableh --dart-define=TWITTER_LINK=https://twitter.com/ortizzableh --dart-define=PHONE_LINK=tel:$TELEPHONE_NUMBER --dart-define=EMAIL_LINK=mailto:$EMAIL_ADDRESS 
 
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
