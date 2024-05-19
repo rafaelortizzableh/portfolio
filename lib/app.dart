@@ -12,7 +12,7 @@ class PortfolioApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           color: Palette.black,
-          onGenerateTitle: (context) => context.l10n.appName,
+          onGenerateTitle: (context) => context.l10n.appTitle,
           theme: CustomTheme.lightTheme(),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,

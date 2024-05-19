@@ -177,7 +177,7 @@ class AppBarTitle extends StatelessWidget {
           AppConstants.verticalSpacing4,
           Flexible(
             child: Text(
-              context.l10n.softwareEngineer.toUpperCase(),
+              context.l10n.softwareDeveloper.toUpperCase(),
               style: AppTextStyles.mediumRegular.copyWith(
                 color: Palette.white,
               ),

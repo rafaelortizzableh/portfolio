@@ -19,6 +19,10 @@ abstract class AppConstants {
   static const circularRadius8 = Radius.circular(8.0);
   static const circularRadius12 = Radius.circular(12.0);
   static const circularRadius16 = Radius.circular(16.0);
+  static const verticalRadius12 = BorderRadius.vertical(
+    top: circularRadius12,
+    bottom: circularRadius12,
+  );
 
   // Empty Space
   static const emptySpace = SizedBox.shrink();

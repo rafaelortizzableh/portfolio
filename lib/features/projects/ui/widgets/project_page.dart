@@ -318,12 +318,18 @@ class _ProjectPageState extends State<ProjectPage>
           useRootNavigator: true,
           isScrollControlled: true,
           barrierColor: Colors.transparent,
-          backgroundColor: Colors.black.withOpacity(0.75),
+          backgroundColor: Colors.black.withOpacity(0.2),
+          shape: const RoundedRectangleBorder(
+            borderRadius: AppConstants.verticalRadius12,
+          ),
           builder: (context) {
-            return FractionallySizedBox(
-              heightFactor: 0.95,
-              child: ProjectDetailsFullScreenDialog(
-                portfolioProject: widget.portfolioProject,
+            return ClipRRect(
+              borderRadius: AppConstants.verticalRadius12,
+              child: FractionallySizedBox(
+                heightFactor: 0.95,
+                child: ProjectDetailsFullScreenDialog(
+                  portfolioProject: widget.portfolioProject,
+                ),
               ),
             );
           }).then((_) => _toggleTitleShown(true));

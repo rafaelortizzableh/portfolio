@@ -10,7 +10,8 @@ class HomeSliverProjectsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final projects = PortfolioProjects.projects.toList();
+    final l10n = context.l10n;
+    final projects = PortfolioProjects.projects(l10n).toList();
     return SliverList.separated(
       itemCount: projects.length,
       separatorBuilder: (context, index) => AppConstants.verticalSpacing12,

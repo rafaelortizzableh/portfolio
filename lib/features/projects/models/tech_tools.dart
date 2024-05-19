@@ -9,9 +9,9 @@ enum TechTool {
   html,
   react(isTopTechTool: true),
   go,
-  serverpod(),
+  serverpod,
   redis,
-  figma(),
+  figma,
   wordpress,
   aws,
   googleCloud;
