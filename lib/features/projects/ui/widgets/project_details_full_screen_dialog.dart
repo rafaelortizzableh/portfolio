@@ -33,35 +33,38 @@ class _ProjectDetailsFullScreenDialogState
 
   @override
   Widget build(BuildContext context) {
-    return FocusableActionDetector(
-      focusNode: focusNode,
-      onFocusChange: (_) => focusNode.requestFocus(),
-      actions: ShortcutActions.closePopup,
-      shortcuts: ShortcutIntents.closePopupOnEnterOrEscape(context),
-      child: Material(
-        type: MaterialType.transparency,
-        child: DecoratedBox(
-          decoration: const BoxDecoration(
-            color: Colors.black87,
-          ),
-          child: GestureDetector(
-            // Adding a GestureDetector to dismiss
-            // the dialog when tapping outside of it.
-            //
-            // Note: This is done so we can prevent the default barrier
-            // behavior of the [showDialog] function.
-            behavior: HitTestBehavior.opaque,
-            onTap: Navigator.of(context).pop,
+    return BackdropFilter(
+      filter: AppConstants.imageFilterBlur4,
+      child: FocusableActionDetector(
+        focusNode: focusNode,
+        onFocusChange: (_) => focusNode.requestFocus(),
+        actions: ShortcutActions.closePopup,
+        shortcuts: ShortcutIntents.closePopupOnEnterOrEscape(context),
+        child: Material(
+          type: MaterialType.transparency,
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+              color: Colors.black87,
+            ),
             child: GestureDetector(
-              // Adding another GestureDetector to prevent
-              // the dialog from being dismissed
-              // when tapping inside of it.
-              onTap: () {},
-              child: Padding(
-                padding: AppConstants.padding32,
-                child: ProjectDetailsPage(
-                  portfolioProject: widget.portfolioProject,
-                  isShownInFullScreenDialog: true,
+              // Adding a GestureDetector to dismiss
+              // the dialog when tapping outside of it.
+              //
+              // Note: This is done so we can prevent the default barrier
+              // behavior of the [showDialog] function.
+              behavior: HitTestBehavior.opaque,
+              onTap: Navigator.of(context).pop,
+              child: GestureDetector(
+                // Adding another GestureDetector to prevent
+                // the dialog from being dismissed
+                // when tapping inside of it.
+                onTap: () {},
+                child: Padding(
+                  padding: AppConstants.padding32,
+                  child: ProjectDetailsPage(
+                    portfolioProject: widget.portfolioProject,
+                    isShownInFullScreenDialog: true,
+                  ),
                 ),
               ),
             ),

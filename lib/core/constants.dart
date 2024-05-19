@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 
 abstract class AppConstants {
@@ -19,9 +21,8 @@ abstract class AppConstants {
   static const circularRadius8 = Radius.circular(8.0);
   static const circularRadius12 = Radius.circular(12.0);
   static const circularRadius16 = Radius.circular(16.0);
-  static const verticalRadius12 = BorderRadius.vertical(
+  static const topVerticalRadius12 = BorderRadius.vertical(
     top: circularRadius12,
-    bottom: circularRadius12,
   );
 
   // Empty Space
@@ -69,4 +70,6 @@ abstract class AppConstants {
   static const padding16 = EdgeInsets.all(16.0);
   static const padding24 = EdgeInsets.all(24.0);
   static const padding32 = EdgeInsets.all(32.0);
+
+  static final imageFilterBlur4 = ui.ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0);
 }
