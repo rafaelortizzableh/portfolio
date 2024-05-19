@@ -16,21 +16,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late final Future<void> _precacheFuture;
+  late final Future<void> _precacheFuture =
+      preloadAssetImages(context).whenComplete(
+    () => RendererBinding.instance.allowFirstFrame(),
+  );
+
   static const _animationDuration = Duration(milliseconds: 1500);
 
   @override
   void initState() {
     super.initState();
+    initApp();
     RendererBinding.instance.deferFirstFrame();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _precacheFuture = preloadAssetImages(context).whenComplete(() {
-      RendererBinding.instance.allowFirstFrame();
-    });
   }
 
   @override
