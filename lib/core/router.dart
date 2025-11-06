@@ -64,7 +64,8 @@ abstract class AppRouter {
         return _getPageRoute(
           settings: settings,
           isModalBottomSheet: true,
-          modalBottomSheetBackgroundColor: Palette.black.withOpacity(0.85),
+          modalBottomSheetBackgroundColor:
+              Palette.black.withValues(alpha: 0.85),
           child: ProjectDetailsPage(
             portfolioProject: args.portfolioProject,
           ),

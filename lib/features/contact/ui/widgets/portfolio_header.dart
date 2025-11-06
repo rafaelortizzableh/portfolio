@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/core.dart';
 
 class PortfolioHeader extends StatelessWidget implements PreferredSizeWidget {
-  const PortfolioHeader({
-    super.key,
-  });
+  const PortfolioHeader({super.key});
 
   static const _preferedHeight = 100.0;
   static const _cardElevation = 8.0;
@@ -34,6 +32,13 @@ class PortfolioHeader extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
             ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: AppConstants.padding8,
+                child: _ThemeModeButton(key: Key('theme-mode-button-header')),
+              ),
+            ),
           ],
         ),
       ),
@@ -46,7 +51,7 @@ class PortfolioHeader extends StatelessWidget implements PreferredSizeWidget {
 
 class _BackgroundDecoration extends StatelessWidget {
   const _BackgroundDecoration({
-    // ignore: unused_element
+    // ignore: unused_element_parameter
     super.key,
   });
 
@@ -68,13 +73,13 @@ class _BackgroundDecoration extends StatelessWidget {
 
 class _GradientDecoration extends StatelessWidget {
   const _GradientDecoration({
-    // ignore: unused_element
+    // ignore: unused_element_parameter
     super.key,
   });
   static final _gradientColors = [
-    Palette.black.withOpacity(0.25),
+    Palette.black.withValues(alpha: 0.25),
     Colors.transparent,
-    Palette.black.withOpacity(0.25),
+    Palette.black.withValues(alpha: 0.25),
   ];
 
   @override
@@ -84,8 +89,8 @@ class _GradientDecoration extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: _gradientColors,
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
           borderRadius: AppConstants.borderRadius12,
         ),
@@ -101,13 +106,8 @@ class _ProfilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxWidth: 80.0,
-        maxHeight: 80.0,
-      ),
-      child: const FadingAssetImage(
-        path: _profilePictureAsset,
-      ),
+      constraints: const BoxConstraints(maxWidth: 80.0, maxHeight: 80.0),
+      child: const FadingAssetImage(path: _profilePictureAsset),
     );
   }
 }
@@ -121,9 +121,7 @@ class AppBarTitle extends StatelessWidget {
     this.isWithinDeviceFrame = false,
   });
 
-  factory AppBarTitle.onExpandedAppBar({
-    bool isWithinDeviceFrame = false,
-  }) {
+  factory AppBarTitle.onExpandedAppBar({bool isWithinDeviceFrame = false}) {
     return AppBarTitle(
       showHeadline: true,
       showImage: true,
@@ -131,15 +129,11 @@ class AppBarTitle extends StatelessWidget {
     );
   }
 
-  factory AppBarTitle.onCollapsedAppBar({
-    bool isWithinDeviceFrame = false,
-  }) {
+  factory AppBarTitle.onCollapsedAppBar({bool isWithinDeviceFrame = false}) {
     return AppBarTitle(
       showHeadline: false,
       showImage: false,
-      titleTextStyle: AppTextStyles.h2.copyWith(
-        color: Palette.white,
-      ),
+      titleTextStyle: AppTextStyles.h2.copyWith(color: Palette.white),
       isWithinDeviceFrame: isWithinDeviceFrame,
     );
   }
@@ -154,10 +148,8 @@ class AppBarTitle extends StatelessWidget {
     final title = isWithinDeviceFrame
         ? context.l10n.projects
         : AppConstants.developerName;
-    final titleTextStyle = this.titleTextStyle ??
-        AppTextStyles.h1.copyWith(
-          color: Palette.white,
-        );
+    final titleTextStyle =
+        this.titleTextStyle ?? AppTextStyles.h1.copyWith(color: Palette.white);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -178,14 +170,33 @@ class AppBarTitle extends StatelessWidget {
           Flexible(
             child: Text(
               context.l10n.softwareDeveloper.toUpperCase(),
-              style: AppTextStyles.mediumRegular.copyWith(
-                color: Palette.white,
-              ),
+              style: AppTextStyles.mediumRegular.copyWith(color: Palette.white),
               textAlign: TextAlign.center,
             ),
           ),
         ],
       ],
+    );
+  }
+}
+
+class _ThemeModeButton extends StatelessWidget {
+  const _ThemeModeButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeMode = context.theme.brightness == Brightness.dark
+        ? ThemeMode.dark
+        : ThemeMode.light;
+    final icon = themeMode == ThemeMode.dark
+        ? Icons.flashlight_on
+        : Icons.flashlight_off;
+    return IconButton(
+      onPressed: () {
+        ThemeModeController.maybeof(context)?.toggleThemeMode();
+      },
+      color: Palette.white,
+      icon: Icon(icon),
     );
   }
 }

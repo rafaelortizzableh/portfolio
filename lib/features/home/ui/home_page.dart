@@ -4,9 +4,7 @@ import '../../../core/core.dart';
 import '../../features.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({
-    super.key,
-  });
+  const HomePage({super.key});
 
   static const routeName = '/';
 
@@ -33,6 +31,31 @@ class HomePage extends StatelessWidget {
         drawer: drawer,
         bottomNavigationBar: bottomNavigationBar,
         body: CustomScrollView(slivers: slivers),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+        floatingActionButton: Padding(
+          padding: AppConstants.verticalPadding4,
+          child: !isWithinDeviceFrame
+              ? FloatingActionButton(
+                  backgroundColor: Palette.black,
+                  foregroundColor: Palette.white,
+                  onPressed: ThemeModeController.maybeof(
+                    context,
+                  )?.toggleThemeMode,
+                  child: Builder(
+                    builder: (context) {
+                      final themeMode =
+                          context.theme.brightness == Brightness.dark
+                          ? ThemeMode.dark
+                          : ThemeMode.light;
+                      final icon = themeMode == ThemeMode.dark
+                          ? Icons.flashlight_on
+                          : Icons.flashlight_off;
+                      return Icon(icon);
+                    },
+                  ),
+                )
+              : AppConstants.emptySpace,
+        ),
       ),
     );
   }

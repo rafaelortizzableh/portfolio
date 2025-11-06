@@ -11,6 +11,7 @@ abstract class AppConstants {
 
   // Layout
   static const double mobileLayoutMaxWidth = 600.0;
+  static const double tabletLayoutMaxWidth = 1024.0;
 
   // Border Radius
   static const borderRadius4 = BorderRadius.all(circularRadius4);
@@ -33,6 +34,7 @@ abstract class AppConstants {
   static const double spacing6 = 6.0;
   static const double spacing8 = 8.0;
   static const double spacing12 = 12.0;
+  static const double spacing16 = 16.0;
   static const double spacing24 = 24.0;
   static const double spacing32 = 32.0;
 
@@ -71,5 +73,6 @@ abstract class AppConstants {
   static const padding24 = EdgeInsets.all(24.0);
   static const padding32 = EdgeInsets.all(32.0);
 
+  static final imageFilterBlur2 = ui.ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0);
   static final imageFilterBlur4 = ui.ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0);
 }

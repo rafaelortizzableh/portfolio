@@ -1,0 +1,128 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Spanish Castilian (`es`).
+class AppLocalizationsEs extends AppLocalizations {
+  AppLocalizationsEs([String locale = 'es']) : super(locale);
+
+  @override
+  String get appName => 'Rafael Ortiz - Desarrollador de Software';
+
+  @override
+  String get appTitle => 'Rafael Ortiz Zableh - Portafolio';
+
+  @override
+  String get developerName => 'Rafael Ortiz Zableh';
+
+  @override
+  String get softwareDeveloper => 'Desarrollador de Software';
+
+  @override
+  String get projects => 'Proyectos';
+
+  @override
+  String get about => 'Acerca de';
+
+  @override
+  String get contact => 'Contacto';
+
+  @override
+  String get aboutMe => 'Acerca de mí';
+
+  @override
+  String get languages => 'Idiomas';
+
+  @override
+  String get english => 'Inglés';
+
+  @override
+  String get spanish => 'Español';
+
+  @override
+  String get italian => 'Italiano';
+
+  @override
+  String get catalan => 'Catalán';
+
+  @override
+  String get closeCta => 'Cerrar';
+
+  @override
+  String get fullScreenCta => 'Pantalla completa';
+
+  @override
+  String get previousImageCta => 'Imagen anterior';
+
+  @override
+  String get nextImageCta => 'Imagen siguiente';
+
+  @override
+  String viewProjectCta(String project) {
+    return 'Ver proyecto de $project';
+  }
+
+  @override
+  String get viewMoreDetailsCta => 'Ver más detalles';
+
+  @override
+  String get toolsAndTechnologies => 'Herramientas y tecnologías';
+
+  @override
+  String get joinBuzzProjectDescription =>
+      'Lideré los esfuerzos técnicos para cambiar una aplicación web de videollamadas para equipos híbridos a una aplicación de barra de menú para equipos de productos y desarrolladores de software.\n\nLos requisitos incluían la integración con APIs de terceros de Github, Google Calendar, Slack, Microsoft, etc.\n\nLa aplicación muestra información relevante sobre tu jornada laboral actual y la de tus compañeros en tiempo real.\n\nTambién se muestran notificaciones personalizadas:\n\n- Cuando tienes una reunión próxima, recibes una notificación que te permite unirte con un solo clic.\n\n- Cuando tu solicitud de extracción tiene alguna actualización, como comentarios, solicitudes de revisión o aprobaciones, recibes una notificación que te permite abrir la solicitud de extracción.';
+
+  @override
+  String get miTransicionProjectDescription =>
+      'Diseñé y desarrollé una aplicación que permite a los pacientes de feminización facial gestionar todos los aspectos de su proceso médico, desde programar citas hasta ver simulaciones de los cambios faciales, pagar por su procedimiento y más.\n\nAdemás, desarrollé un backoffice para el personal del centro médico para gestionar todos los aspectos del proceso de los pacientes, incluyendo programar citas, gestionar pagos y más.';
+
+  @override
+  String get zurichOneAppProjectDescription =>
+      'Desarrollé funcionalidades para la aplicación móvil One Zurich App.\nEntre los desafíos que enfrentó mi equipo se encuentran:\n\n- Agregar soporte para MSAL a través de Platform Channels (Swift + Kotlin).\n\n- Agregar soporte para mapas de planos de piso SVG.\n\n- Implementar un backoffice personalizado de Flutter Web para el sistema de gestión de contenido de la aplicación.';
+
+  @override
+  String get fundacionSaludSiglo21ProjectDescription =>
+      'Me encargué de los aspectos técnicos del proceso de digitalización de la Fundación Salud Siglo 21, una organización sin fines de lucro que brinda servicios médicos a comunidades vulnerables en Colombia.\n\nEsto incluyó:\n\n- Supervisar el proceso de cambio de imagen de la organización sin fines de lucro.\n\n- Crear un nuevo sitio web para la fundación.\n\n- Crear una aplicación web de pila completa que permite a los usuarios registrarse, actualizar su información y pagar las cuotas de membresía anuales tanto a través de pagos físicos como transferencias bancarias. La aplicación incluye integraciones con APIs de terceros para pagos, inserción de datos en su CRM y Google Sheets, entre otros.\n\n- Crear una aplicación web de directorio que permite a los usuarios encontrar profesionales médicos, filtrando por especializaciones, subespecializaciones y procedimientos médicos ofrecidos.\n\n- Brindar servicios de consultoría para el proceso de digitalización de la organización sin fines de lucro. Esto incluyó capacitación en redes sociales y diseño básico.';
+
+  @override
+  String get profesionalesDeLaSaludProjectDescription =>
+      '- Creé un sitio web para el grupo médico.\n\n- Creé una aplicación web para programar citas según sus requisitos.\n\n- Creé automatizaciones sin servidor para el proceso de programación de citas, incluyendo integraciones con APIs de terceros.';
+
+  @override
+  String get centroMedicoCALProjectDescription =>
+      'Supervisé el proceso de cambio de imagen del centro médico.\n\nCreé un sitio web para el centro médico, incluyendo una sección personalizada para el directorio de profesionales médicos del centro.';
+
+  @override
+  String get centroUrologicoFoscalProjectDescription =>
+      '- Supervisé el proceso de cambio de imagen de el grupo médico.\n\n- Creé un sitio web para el grupo médico.\n\n- Brindé mantenimiento y soporte para el sitio web de el grupo médico.\n\n- Brindé servicios de consultoría para el proceso de digitalización de el grupo médico.\n\n- Brindé servicios de consultoría en comunicaciones internas y externas para el grupo médico.\n\n- Creé e implementé una estrategia exitosa de SEO para el grupo médico.';
+
+  @override
+  String get spectMedicinaNuclearProjectDescription =>
+      '- Creé un sitio web para el grupo médico.\n\n- Brindé mantenimiento y soporte para el sitio web de el grupo médico.\n\n- Creé e implementé una estrategia exitosa de SEO para el grupo médico.';
+
+  @override
+  String get elCieloDeMilaProjectDescription =>
+      '- Creé un sitio web para la tienda sin ánimo de lucro.\n\n- Brindé mantenimiento y soporte para el sitio web de la tienda sin fines de lucro.';
+
+  @override
+  String get aquaBottlesProjectDescription =>
+      '- Creé un sitio web de comercio electrónico para el negocio de botellas de agua.\n- Creé automatizaciones sin servidor para registrar nuevas compras y carritos de compra abandonados en Google Sheets y enviar notificaciones en Telegram.\n- Brindé mantenimiento y soporte para el sitio web.';
+
+  @override
+  String get mascootyProjectDescription =>
+      'Diseñé y desarrollé el MVP de una aplicación móvil que permite a los dueños de mascotas vender y comprar productos y servicios para mascotas.';
+
+  @override
+  String get allInBikingProjectDescription =>
+      'Diseñé y desarrollé la primera iteración del MVP de una aplicación móvil que permite a los propietarios de bicicletas registrar sus bicicletas y, en caso de robo, reportarlo y obtener ayuda de la comunidad para encontrarla; así como también andar con otros ciclistas.';
+
+  @override
+  String get descupAppProjectDescription =>
+      'Desarrollé funcionalidades y corregí errores para la aplicación móvil Descup App.\nLa aplicación permite a los usuarios encontrar mejores ofertas para sus servicios públicos.';
+
+  @override
+  String get ingeoExpertProjectDescription =>
+      'Desarrollé funcionalidades para la aplicación móvil de la plataforma de aprendizaje en línea.\n- Creé un reproductor de video personalizado que permite a los usuarios ver videos sin usar Vimeo.\n- Creé un visor de PDF personalizado que permite a los usuarios ver PDFs sin usar Google Drive.\n- Integré la aplicación con las APIs de Wordpress y Moodle para permitir a los usuarios comprar y ver cursos.\n- Agregué soporte para inicio de sesión con redes sociales.\n- Mejoré el diseño UX/UI de la aplicación según los requisitos.';
+}

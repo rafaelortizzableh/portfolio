@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 Future<void> preloadAssetImages(BuildContext context) async {
   const imagePaths = [
     'assets/images/header.webp',
+    'assets/images/header_vertical.webp',
     'assets/icons/email_icon.webp',
     'assets/icons/github_icon.webp',
     'assets/icons/linkedin_icon.webp',
@@ -26,12 +27,8 @@ Future<void> preloadAssetImages(BuildContext context) async {
     'assets/images/tech_tools/wordpress.webp',
   ];
 
-  final imageProviders = imagePaths.map(
-    (assetName) => AssetImage(assetName),
-  );
-
-  final precacheFutures = imageProviders.map(
-    (imageProvider) => precacheImage(imageProvider, context),
+  final precacheFutures = imagePaths.map(
+    (imagePath) => precacheImage(AssetImage(imagePath), context),
   );
   await Future.wait(precacheFutures);
 }

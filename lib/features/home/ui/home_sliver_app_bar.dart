@@ -56,9 +56,9 @@ class HomeSliverAppBar extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Palette.black.withOpacity(0.5),
+                      Palette.black.withValues(alpha: 0.5),
                       Colors.transparent,
-                      Palette.black.withOpacity(0.5),
+                      Palette.black.withValues(alpha: 0.5),
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,

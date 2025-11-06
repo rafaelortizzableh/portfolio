@@ -9,13 +9,13 @@ class InfoSidePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final languages = InfoPanelData.getLanguageRecords(context.l10n);
-    return SizedBox.expand(
-      child: DecoratedBox(
-        decoration: _boxDecoration,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: kToolbarHeight,
-          ),
+
+    return Stack(
+      children: [
+        SizedBox.expand(child: DecoratedBox(decoration: _backgroundDecoration)),
+        SizedBox.expand(child: DecoratedBox(decoration: _gradientDecoration)),
+        Padding(
+          padding: const EdgeInsets.only(top: kToolbarHeight),
           child: ListView(
             padding: AppConstants.padding16,
             children: [
@@ -39,6 +39,7 @@ class InfoSidePanel extends StatelessWidget {
               TechToolsWrap(
                 techTools: Set.from(TechTool.values),
                 shouldhighlightTopTechTools: true,
+                shouldUseBlurEffect: true,
               ),
               AppConstants.verticalSpacing16,
               Text(
@@ -59,25 +60,35 @@ class InfoSidePanel extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 
-  static const _boxDecoration = BoxDecoration(
-    color: Palette.grey,
+  static final _backgroundDecoration = BoxDecoration(
+    image: DecorationImage(
+      image: AssetImage('./assets/images/header_vertical.webp'),
+      fit: BoxFit.cover,
+    ),
   );
 
-  TextStyle get _subTitlesTextStyle => AppTextStyles.mediumStrong.copyWith(
-        color: Palette.white,
-        fontSize: 18.0,
-      );
+  static final _gradientDecoration = BoxDecoration(
+    gradient: LinearGradient(
+      colors: [
+        Palette.black.withValues(alpha: 0.25),
+        Colors.transparent,
+        Palette.black.withValues(alpha: 0.25),
+      ],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+  );
+
+  TextStyle get _subTitlesTextStyle =>
+      AppTextStyles.mediumStrong.copyWith(color: Palette.white, fontSize: 18.0);
 }
 
 class _LanguageTile extends StatelessWidget {
-  const _LanguageTile({
-    required this.language,
-    required this.level,
-  });
+  const _LanguageTile({required this.language, required this.level});
 
   final String language;
   final double level;
@@ -89,14 +100,9 @@ class _LanguageTile extends StatelessWidget {
       children: [
         Text(
           language,
-          style: AppTextStyles.mediumRegular.copyWith(
-            color: Palette.white,
-          ),
+          style: AppTextStyles.mediumRegular.copyWith(color: Palette.white),
         ),
-        AnimatedHorizontalBar(
-          value: level,
-          width: 100.0,
-        ),
+        AnimatedHorizontalBar(value: level, width: 100.0),
       ],
     );
   }
@@ -164,12 +170,18 @@ class _AnimatedHorizontalBarState extends State<AnimatedHorizontalBar>
         builder: (_, __) {
           return Stack(
             children: [
-              Container(
-                width: widget.width,
-                height: widget.heigth,
-                decoration: BoxDecoration(
-                  color: Palette.white.withOpacity(0.2),
-                  borderRadius: _borderRadius,
+              ClipRRect(
+                borderRadius: _borderRadius,
+                child: BackdropFilter(
+                  filter: AppConstants.imageFilterBlur2,
+                  child: Container(
+                    width: widget.width,
+                    height: widget.heigth,
+                    decoration: BoxDecoration(
+                      color: Palette.white.withValues(alpha: 0.2),
+                      borderRadius: _borderRadius,
+                    ),
+                  ),
                 ),
               ),
               Container(
@@ -179,7 +191,7 @@ class _AnimatedHorizontalBarState extends State<AnimatedHorizontalBar>
                   color: Palette.white,
                   borderRadius: _borderRadius,
                   border: Border.all(
-                    color: Palette.white.withOpacity(0.2),
+                    color: Palette.white.withValues(alpha: 0.2),
                     width: 1.0,
                   ),
                 ),

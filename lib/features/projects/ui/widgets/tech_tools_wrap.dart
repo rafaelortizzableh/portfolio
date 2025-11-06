@@ -8,10 +8,12 @@ class TechToolsWrap extends StatelessWidget {
     super.key,
     required this.techTools,
     this.shouldhighlightTopTechTools = false,
+    this.shouldUseBlurEffect = false,
   });
 
   final Set<TechTool> techTools;
   final bool shouldhighlightTopTechTools;
+  final bool shouldUseBlurEffect;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class TechToolsWrap extends StatelessWidget {
           (techTool) => TechToolTile(
             techTool: techTool,
             shouldhighlightTopTechTool: shouldhighlightTopTechTools,
+            shouldUseBlurEffect: shouldUseBlurEffect,
           ),
         ),
       ],
@@ -36,10 +39,12 @@ class TechToolTile extends StatelessWidget {
     super.key,
     required this.techTool,
     required this.shouldhighlightTopTechTool,
+    required this.shouldUseBlurEffect,
   });
 
   final TechTool techTool;
   final bool shouldhighlightTopTechTool;
+  final bool shouldUseBlurEffect;
 
   @override
   Widget build(BuildContext context) {
@@ -53,19 +58,33 @@ class TechToolTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              DecoratedBox(
-                decoration: const BoxDecoration(
-                  color: Palette.white,
+              if (shouldUseBlurEffect) ...[
+                ClipRRect(
                   borderRadius: AppConstants.borderRadius12,
-                ),
-                child: Padding(
-                  padding: AppConstants.padding4,
-                  child: Image.asset(
-                    techTool.iconAsset,
-                    width: 42.0,
+                  child: BackdropFilter(
+                    filter: AppConstants.imageFilterBlur2,
+                    child: Container(
+                      padding: AppConstants.padding4,
+                      decoration: BoxDecoration(
+                        color: Palette.white.withValues(alpha: 0.5),
+                        borderRadius: AppConstants.borderRadius12,
+                      ),
+                      child: Image.asset(techTool.iconAsset, width: 42.0),
+                    ),
                   ),
                 ),
-              ),
+              ] else ...[
+                DecoratedBox(
+                  decoration: const BoxDecoration(
+                    color: Palette.white,
+                    borderRadius: AppConstants.borderRadius12,
+                  ),
+                  child: Padding(
+                    padding: AppConstants.padding4,
+                    child: Image.asset(techTool.iconAsset, width: 42.0),
+                  ),
+                ),
+              ],
               AppConstants.verticalSpacing4,
               Text(
                 techTool.label,
@@ -87,11 +106,7 @@ class TechToolTile extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: AppConstants.padding4,
-                  child: Icon(
-                    Icons.star,
-                    size: 12.0,
-                    color: Palette.white,
-                  ),
+                  child: Icon(Icons.star, size: 12.0, color: Palette.white),
                 ),
               ),
             ),

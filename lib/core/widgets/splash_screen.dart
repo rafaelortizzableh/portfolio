@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({
-    super.key,
-    required this.child,
-  });
+  const SplashScreen({super.key, required this.child});
 
   final Widget child;
 
@@ -16,10 +14,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late final Future<void> _precacheFuture =
-      preloadAssetImages(context).whenComplete(
+  late final Future<void> _precacheFuture = _initAppFuture().whenComplete(
     () => RendererBinding.instance.allowFirstFrame(),
   );
+
+  Future<void> _initAppFuture() async {
+    try {
+      final result = await Future.wait([
+        preloadAssetImages(context),
+        SharedPreferences.getInstance(),
+      ]);
+      await SharedPreferencesSingleton.instance.init(
+        result.lastOrNull as SharedPreferences?,
+      );
+    } catch (e) {
+      debugPrint('Error initializing app: $e');
+    }
+  }
 
   static const _animationDuration = Duration(milliseconds: 1500);
 
@@ -52,20 +63,17 @@ class _SplashScreenState extends State<SplashScreen> {
               orElse: () => false,
             );
 
-            final child =
-                !shouldShowSplashScreen ? widget.child : const _SplashWidget();
+            final child = !shouldShowSplashScreen
+                ? widget.child
+                : const _SplashWidget();
 
             return AnimatedSwitcher(
               duration: _animationDuration,
               transitionBuilder: (child, animation) {
                 return SlideTransition(
-                  position: _positionTween(
-                    animation,
-                  ),
+                  position: _positionTween(animation),
                   child: DecoratedBox(
-                    decoration: const BoxDecoration(
-                      color: Palette.grey,
-                    ),
+                    decoration: const BoxDecoration(color: Palette.grey),
                     child: child,
                   ),
                 );
@@ -82,17 +90,13 @@ class _SplashScreenState extends State<SplashScreen> {
     return Tween<Offset>(
       begin: const Offset(0.0, -1.0),
       end: Offset.zero,
-    )
-        .chain(
-          CurveTween(curve: Sprung.criticallyDamped),
-        )
-        .animate(animation);
+    ).chain(CurveTween(curve: Sprung.criticallyDamped)).animate(animation);
   }
 }
 
 class _ErrorWidget extends StatelessWidget {
   const _ErrorWidget({
-    // ignore: unused_element
+    // ignore: unused_element_parameter
     super.key,
     required this.errorMessage,
   });
@@ -110,9 +114,7 @@ class _ErrorWidget extends StatelessWidget {
             Text(
               'Error:\n'
               '$errorMessage',
-              style: AppTextStyles.mediumStrong.copyWith(
-                color: Palette.white,
-              ),
+              style: AppTextStyles.mediumStrong.copyWith(color: Palette.white),
               textAlign: TextAlign.center,
             ),
             AppConstants.verticalSpacing8,
@@ -125,7 +127,7 @@ class _ErrorWidget extends StatelessWidget {
 
 class _SplashWidget extends StatelessWidget {
   const _SplashWidget({
-    // ignore: unused_element
+    // ignore: unused_element_parameter
     super.key,
   });
 

@@ -1,6 +1,7 @@
 export 'app_init/app_init.dart';
 export 'constants.dart';
 export 'extensions/extensions.dart';
+export 'l10n/l10n.dart';
 export 'router.dart';
 export 'theme.dart';
 export 'tools/tools.dart';

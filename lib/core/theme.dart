@@ -7,10 +7,12 @@ class CustomTheme {
 
   static ThemeData darkTheme() {
     final theme = ThemeData.dark();
+
     return ThemeData(
       colorSchemeSeed: Palette.grey,
-      canvasColor: Palette.black,
-      scaffoldBackgroundColor: Palette.black,
+      brightness: Brightness.dark,
+      canvasColor: Colors.grey.shade900,
+      scaffoldBackgroundColor: Colors.grey.shade900,
       appBarTheme: const AppBarTheme(
         elevation: _appBarElevation,
         backgroundColor: Palette.grey,
@@ -22,10 +24,7 @@ class CustomTheme {
               color: Colors.white,
             ),
           )
-          .apply(
-            displayColor: Colors.white,
-            bodyColor: Colors.white,
-          ),
+          .apply(displayColor: Colors.white, bodyColor: Colors.white),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           backgroundColor: Palette.grey,
@@ -48,6 +47,7 @@ class CustomTheme {
     final theme = ThemeData.light();
     return ThemeData(
       colorSchemeSeed: Palette.grey,
+      brightness: Brightness.light,
       canvasColor: Palette.white,
       scaffoldBackgroundColor: Palette.white,
       appBarTheme: const AppBarTheme(
@@ -61,14 +61,9 @@ class CustomTheme {
               color: Colors.white,
             ),
           )
-          .apply(
-            displayColor: Colors.black,
-            bodyColor: Colors.black,
-          ),
+          .apply(displayColor: Colors.black, bodyColor: Colors.black),
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          backgroundColor: Palette.grey,
-        ),
+        style: TextButton.styleFrom(backgroundColor: Palette.grey),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -165,4 +160,99 @@ abstract class AppTextStyles {
     height: (18 / 13.0),
     letterSpacing: 0.1,
   );
+}
+
+class ThemeWrapper extends StatefulWidget {
+  const ThemeWrapper({super.key, required this.builder});
+
+  final Widget Function(
+    ThemeMode? themeMode,
+    Function(ThemeMode? themeMode) onChanged,
+    BuildContext context,
+  )
+  builder;
+
+  @override
+  State<ThemeWrapper> createState() => _ThemeWrapperState();
+}
+
+class _ThemeWrapperState extends State<ThemeWrapper> {
+  final _themeModeValueNotifier = ThemeModeValueNotifier(null);
+
+  @override
+  void initState() {
+    super.initState();
+    _loadInitialThemeMode();
+    _themeModeValueNotifier.addListener(() {
+      _saveThemeModeToSharedPrefs();
+    });
+  }
+
+  @override
+  void dispose() {
+    _themeModeValueNotifier.dispose();
+    super.dispose();
+  }
+
+  void _loadInitialThemeMode() {
+    final prefs = SharedPreferencesSingleton.instance.prefs;
+    final themeModeIsDark = prefs?.getBool(_themeSharedPrefsKey);
+    _themeModeValueNotifier.value = themeModeIsDark == true
+        ? ThemeMode.dark
+        : ThemeMode.light;
+  }
+
+  void _saveThemeModeToSharedPrefs() {
+    final prefs = SharedPreferencesSingleton.instance.prefs;
+    prefs?.setBool(
+      _themeSharedPrefsKey,
+      _themeModeValueNotifier.value == ThemeMode.dark,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: _themeModeValueNotifier,
+      builder: (context, themeMode, child) {
+        return ThemeModeController(
+          themeModeValueNotifier: _themeModeValueNotifier,
+          child: widget.builder(themeMode, (themeMode) {
+            _themeModeValueNotifier.value = themeMode;
+          }, context),
+        );
+      },
+    );
+  }
+}
+
+const _themeSharedPrefsKey = 'theme_mode_is_dark';
+
+class ThemeModeController extends InheritedWidget {
+  const ThemeModeController({
+    super.key,
+    required this.themeModeValueNotifier,
+    required super.child,
+  });
+
+  final ThemeModeValueNotifier themeModeValueNotifier;
+
+  @override
+  bool updateShouldNotify(ThemeModeController oldWidget) {
+    return themeModeValueNotifier != oldWidget.themeModeValueNotifier;
+  }
+
+  static ThemeModeValueNotifier? maybeof(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<ThemeModeController>()
+        ?.themeModeValueNotifier;
+  }
+}
+
+class ThemeModeValueNotifier extends ValueNotifier<ThemeMode?> {
+  ThemeModeValueNotifier(super.value);
+
+  void toggleThemeMode() {
+    value = value == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+  }
 }

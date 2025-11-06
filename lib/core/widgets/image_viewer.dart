@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart' hide Colors;
 
 import '../core.dart';
 
@@ -9,9 +10,9 @@ class ImageViewerArguments {
     this.imageAsset,
     required this.heroTag,
   }) : assert(
-          imageAsset != null || imageUrl != null,
-          'One of imageAsset or imageUrl should be a valid string',
-        );
+         imageAsset != null || imageUrl != null,
+         'One of imageAsset or imageUrl should be a valid string',
+       );
 
   final String? imageUrl, imageAsset;
   final String heroTag;
@@ -159,36 +160,27 @@ class _ImageViewerState extends State<ImageViewer>
       final position = details.localPosition;
 
       endMatrix = Matrix4.identity()
-        // ..translate(-position.dx, -position.dy)
-        // ..scale(2.0); // Fox a 2x zoom
-        ..translate(-position.dx * 2, -position.dy * 2)
-        ..scale(3.0); // For a 3x zoom
+        ..translateByVector3(Vector3(-position.dx, -position.dy, 0.0))
+        ..scaleByVector3(Vector3(2.0, 2.0, 1.0));
     }
     animationValueNotifier.value = Matrix4Tween(
       begin: transformationController.value,
       end: endMatrix,
-    ).animate(
-      CurveTween(curve: Curves.easeOut).animate(animationController),
-    );
+    ).animate(CurveTween(curve: Curves.easeOut).animate(animationController));
     animationController.forward(from: 0);
   }
 }
 
 class _Image extends StatelessWidget {
-  const _Image({
-    required this.imageAsset,
-    required this.imageUrl,
-  });
+  const _Image({required this.imageAsset, required this.imageUrl});
   final String? imageAsset;
   final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
+    final imageUrl = this.imageUrl;
     if (imageUrl != null) {
-      return CachedNetworkImage(
-        width: context.width,
-        imageUrl: imageUrl!,
-      );
+      return CachedNetworkImage(width: context.width, imageUrl: imageUrl);
     }
     if (imageAsset != null) {
       return Image.asset(imageAsset!);

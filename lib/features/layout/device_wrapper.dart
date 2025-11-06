@@ -5,10 +5,7 @@ import '../../core/core.dart';
 import '../features.dart';
 
 class DeviceWrapper extends StatelessWidget {
-  const DeviceWrapper({
-    super.key,
-    required this.child,
-  });
+  const DeviceWrapper({super.key, required this.child});
 
   final Widget child;
 
@@ -17,10 +14,7 @@ class DeviceWrapper extends StatelessWidget {
     final isMobileLayout = context.width <= AppConstants.mobileLayoutMaxWidth;
     return PopScope(
       canPop: false,
-      child: _DeviceWrapperLayout(
-        isMobileLayout: isMobileLayout,
-        child: child,
-      ),
+      child: _DeviceWrapperLayout(isMobileLayout: isMobileLayout, child: child),
     );
   }
 }
@@ -33,6 +27,8 @@ class _DeviceWrapperLayout extends StatelessWidget {
 
   final Widget child;
   final bool isMobileLayout;
+
+  static const _cardElevation = 8.0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +46,17 @@ class _DeviceWrapperLayout extends StatelessWidget {
               children: [
                 const Expanded(
                   flex: 2,
-                  child: InfoSidePanel(),
+                  child: Padding(
+                    padding: AppConstants.padding4,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: AppConstants.borderRadius12,
+                      ),
+                      clipBehavior: Clip.hardEdge,
+                      elevation: _cardElevation,
+                      child: InfoSidePanel(),
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 4,
@@ -96,9 +102,7 @@ class _DeviceWrapperLayout extends StatelessWidget {
 }
 
 class _DeviceFrameSelector extends StatefulWidget {
-  const _DeviceFrameSelector({
-    required this.child,
-  });
+  const _DeviceFrameSelector({required this.child});
 
   final Widget child;
 
@@ -109,13 +113,13 @@ class _DeviceFrameSelector extends StatefulWidget {
 class _DeviceFrameSelectorState extends State<_DeviceFrameSelector> {
   @override
   Widget build(BuildContext context) {
-    return DeviceFrame(
-      device: _deviceInfo,
-      screen: widget.child,
-    );
+    return DeviceFrame(device: _deviceInfo, screen: widget.child);
   }
 
   DeviceInfo get _deviceInfo {
-    return Devices.ios.iPhone13;
+    final isCupertino =
+        Theme.of(context).platform == TargetPlatform.iOS ||
+        Theme.of(context).platform == TargetPlatform.macOS;
+    return isCupertino ? Devices.ios.iPhone16Pro : Devices.android.googlePixel9;
   }
 }
